@@ -1,0 +1,4 @@
+import ExcelJS from 'exceljs';
+
+const valueOf=cell=>{const value=cell.value;if(value==null)return'';if(value instanceof Date)return value.toISOString().slice(0,10);if(typeof value==='object'){if(value.richText)return value.richText.map(x=>x.text).join('');if(value.text)return value.text;if(value.result!=null)return value.result;}return value;};
+export async function parseExcelTable(file){if(file.size>15*1024*1024)throw new Error('Excel 文件不能超过 15 MB');const workbook=new ExcelJS.Workbook();await workbook.xlsx.load(await file.arrayBuffer());const sheet=workbook.worksheets[0];if(!sheet)throw new Error('Excel 中没有工作表');if(sheet.rowCount>5000||sheet.columnCount>100)throw new Error('单次最多导入 5000 行、100 列');const rows=[];sheet.eachRow({includeEmpty:false},row=>{const values=[];for(let column=1;column<=sheet.columnCount;column++)values.push(valueOf(row.getCell(column)));rows.push(values);});return{sheetName:sheet.name,rows};}
