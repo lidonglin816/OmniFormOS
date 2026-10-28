@@ -1,0 +1,16 @@
+node_modules/
+output/
+artifacts/desktop-package-*/
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+data/
+artifacts/auth/
+auth/
+artifacts/examcraft-qa.sqlite*
+artifacts/flowform-qa.sqlite*
+
+# 验证产物整体不入库（截图、QA sqlite、构建中间件），可由脚本重新生成
+artifacts/

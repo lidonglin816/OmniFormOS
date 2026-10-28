@@ -1,0 +1,47 @@
+{
+  "name": "omniformos-prototype",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node server.mjs",
+    "start": "node server.mjs",
+    "start:workspace": "node scripts/ensure-workspace.mjs",
+    "check": "node --check server.mjs && node --check public/app.js && node --check public/formpilot.js && node --check public/formpilot-model.js && node --check public/examcraft.js && node --check public/examcraft-model.js && node --check public/flowform.js && node --check public/flowform-pro.js && node --check public/flowform-model.js && node --check public/docmorph.js && node --check public/docmorph-pro.js && node --check public/docmorph-model.js && node --check public/doc-form.js && node --check public/adaptform.js && node --check public/adaptform-pro.js && node --check public/adapt-form.js && node --check public/adaptform-model.js && node --check public/tablemind-pro.js && node --check public/tablemind-pro-model.js && node --check public/tablemind-charts.js && node --check public/table-view.js && node --check public/labform.js && node --check public/labform-model.js && node --check public/appcanvas.js && node --check public/appcanvas-model.js && node --check public/field-rules.js && node --check src/exam-service.mjs && node --check src/flow-service.mjs && node --check src/doc-service.mjs && node --check src/adapt-service.mjs && node --check src/table-service.mjs && node --check public/examcraft-pro.js && node --check public/examcraft-pro-model.js && node --check public/exam-student.js && node --check public/labform-pro.js && node --check public/labform-pro-model.js && node --check src/lab-service.mjs && node --check src/canvas-service.mjs && node --check public/appcanvas-pro.js && node --check public/appcanvas-pro-model.js && node --check public/appcanvas-runtime.js && node --check public/canvas-app.js && node --check public/appcanvas-editor-model.js && node --check public/workspace-ui.js && node --check public/workspace-ui-model.js && node --check public/workspace-motion.js && node --check public/workspace-physics.js && node --check public/workspace-transitions.js && node --check public/module-experiences.js && node --check public/hero-mascot.js && node --check public/mascot-tracking.js && node --check public/scenario-catalog.js && node --check public/scenario-adapt.js && node --check public/landing-keys.js && node --check src/exam-analytics.mjs && node --check public/examcraft-analytics.js && node --check public/formpilot3.js && node --check src/flow-campus-service.mjs && node --check public/flow-campus-model.js && node --check public/flow-campus-ui.js && node --check public/flowform3.js && node --check public/flow-portal.js && node --check public/workspace-status.js && node --check src/workspace-backup.mjs && node --check scripts/restore-workspace.mjs && node --check src/workspace-access.mjs && node --check public/save-conflict.js && node --check public/restore-browser.js && node --check scripts/start-restored-workspace.mjs && node --check src/workspace-records.mjs && node --check public/workspace-data.js && node --check public/theme-init.js && node --check public/workspace-theme.js && node --check public/workspace-theme-charts.js && node --check public/formpilot-studio-model.js && node --check public/appcanvas-launch.js && node --check public/examcraft-learning-model.js && node --check public/examcraft-monitor.js && node --check public/exam-student-practice.js && node --check public/flow-observability.js && node --check public/flow-inspector-ui.js && node --check public/docmorph-studio-model.js && node --check public/docmorph-file-validation.js && node --check public/docmorph-evidence.js && node --check src/doc-fillable-pdf.mjs && node --check src/doc-parser.js && node --check public/docmorph-files.js && node --check public/adaptform-engine.js && node --check public/adaptform-schema.js && node --check public/adaptform-renderer.js && node --check public/adaptform-studio.js && node --check public/adaptform-templates.js && node --check public/adaptform-analytics.js && node --check src/adapt-studio-routes.mjs && node --check src/adapt-analytics.mjs && node --check public/tablemind-data-engine.js && node --check public/tablemind-aggregate.js && node --check public/tablemind-templates.js && node --check public/tablemind-studio3.js && node --check src/table-studio-routes.mjs && node --check src/table-api-connector.mjs && node --check src/table-public-projection.mjs && node --check src/table-revisions.mjs && node --check src/table-entity-validation.mjs && node --check public/labform-studio3.js && node --check public/labform-science.js && node --check public/labform-plotly.js && node --check src/lab-studio-routes.mjs && node --check public/canvas-protocol.js && node --check public/canvas-studio-model.js && node --check public/canvas-studio4.js && node --check public/canvas-runtime-data.js && node --check src/canvas-studio-service.mjs && node --check src/auth-service.mjs && node --check public/auth.js && node --check public/auth-model.js && node --check public/auth-entry.js",
+    "build": "node scripts/build-flow.mjs && node scripts/build-docmorph.mjs && node scripts/build-exam.mjs && node scripts/build-tablemind.mjs && node scripts/build-mascot.mjs && node scripts/build-lab.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "desktop": "electron desktop/main.cjs",
+    "desktop:build": "npm run build && electron-builder --config desktop/builder.cjs --win --x64"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "dependencies": {
+    "@pdf-lib/fontkit": "^1.1.1",
+    "@react-three/fiber": "^9.8.2",
+    "@resvg/resvg-js": "^2.6.2",
+    "@supabase/supabase-js": "^2.118.0",
+    "@tesseract.js-data/chi_sim": "^1.0.0",
+    "@tesseract.js-data/eng": "^1.0.0",
+    "@xyflow/react": "^12.12.0",
+    "docx": "^9.12.0",
+    "echarts": "^6.1.0",
+    "exceljs": "^4.4.0",
+    "katex": "^0.19.0",
+    "mammoth": "^1.13.0",
+    "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "^6.4.299",
+    "plotly.js-basic-dist-min": "^4.1.2",
+    "qrcode": "^1.5.4",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "tesseract.js": "^7.0.0",
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "electron": "^45.0.0",
+    "electron-builder": "^26.18.0",
+    "esbuild": "^0.28.2"
+  },
+  "main": "desktop/main.cjs"
+}
