@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>OmniFormOS 技术文档</title>
+<style>
+  @page { size: A4; margin: 20mm 18mm 18mm; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; color: #1c2129;
+    font: 10.5pt/1.75 "Microsoft YaHei", "Segoe UI", "PingFang SC", sans-serif;
+  }
+  h1 { font-size: 24pt; line-height: 1.3; margin: 0 0 6mm; letter-spacing: -.5pt; }
+  h2 { font-size: 14pt; margin: 9mm 0 3mm; padding-bottom: 2mm; border-bottom: 1.2px solid #2f3742; page-break-after: avoid; }
+  h3 { font-size: 11.5pt; margin: 6mm 0 2mm; color: #11161d; page-break-after: avoid; }
+  h4 { font-size: 10.5pt; margin: 4mm 0 1.5mm; color: #2b3340; page-break-after: avoid; }
+  p { margin: 0 0 2.6mm; text-align: justify; }
+  ul, ol { margin: 0 0 3mm; padding-left: 6mm; }
+  li { margin-bottom: 1.4mm; }
+  table { width: 100%; border-collapse: collapse; margin: 2mm 0 4mm; font-size: 9.5pt; page-break-inside: avoid; }
+  th, td { border: 1px solid #c9d1dc; padding: 1.8mm 2.4mm; text-align: left; vertical-align: top; }
+  th { background: #eef2f7; font-weight: 600; }
+  code { font-family: "Cascadia Mono", Consolas, monospace; font-size: 9pt; background: #f2f5f9; padding: .3mm 1.2mm; border-radius: 2px; }
+  pre { background: #f6f8fa; border: 1px solid #dde3ea; border-radius: 3px; padding: 2.5mm 3mm; font-family: "Cascadia Mono", Consolas, monospace; font-size: 8.8pt; line-height: 1.6; overflow-wrap: anywhere; white-space: pre-wrap; page-break-inside: avoid; margin: 2mm 0 4mm; }
+  .cover { page-break-after: always; padding-top: 40mm; }
+  .cover .sub { font-size: 12pt; color: #4c5866; margin-bottom: 18mm; }
+  .cover .meta { font-size: 10pt; color: #4c5866; line-height: 2.2; border-top: 1px solid #c9d1dc; padding-top: 5mm; }
+  .toc { page-break-after: always; }
+  .toc ol { padding-left: 7mm; font-size: 10pt; }
+  .toc li { margin-bottom: 2.2mm; }
+  .lead { font-size: 11pt; color: #333c48; border-left: 3px solid #4a6fa5; padding-left: 4mm; margin-bottom: 5mm; }
+  .note { background: #f4f7fb; border-left: 3px solid #6b8cbe; padding: 3mm 4mm; margin: 3mm 0 4mm; font-size: 9.8pt; }
+  .fig { border: 1px solid #c9d1dc; border-radius: 3px; padding: 4mm; margin: 3mm 0 4mm; background: #fbfcfe; page-break-inside: avoid; }
+  .fig .cap { font-size: 9pt; color: #55616f; text-align: center; margin-top: 2mm; }
+  .layer { border: 1px solid #b9c4d2; border-radius: 3px; padding: 2.2mm 3mm; margin-bottom: 2mm; background: #fff; font-size: 9.5pt; }
+  .layer b { display: inline-block; min-width: 26mm; }
+  .arrow { text-align: center; color: #8996a6; font-size: 9pt; line-height: 1; margin: 1mm 0; }
+  .kv { font-size: 9.5pt; }
+  .page-break { page-break-before: always; }
+  .small { font-size: 9pt; color: #55616f; }
+</style>
+</head>
+<body>
+
+<section class="cover">
+  <h1>OmniFormOS<br>AI 原生全场景低代码应用生成<br>与智能业务自动化平台</h1>
+  <p class="sub">技术文档 · 桌面版 v1.2.0 · 八大引擎协同架构</p>
+  <div class="meta">
+    提交形态：Windows 桌面应用（Electron）+ 同构网页工作区<br>
+    仓库内容：完整可复现源码、构建脚本、41 项自动化测试、大赛材料<br>
+    技术栈：Node.js 24 / Electron / 原生 ES 模块前端 / SQLite（node:sqlite）/ OpenAI 兼容大模型接口<br>
+    文档范围：意图控制策略 · 架构设计与约束 · 可复现性论证 · 功能说明 · 工程过程
+  </div>
+</section>
+
+<section class="toc">
+  <h2 style="margin-top:0">目录</h2>
+  <ol>
+    <li>项目概述与产品定位</li>
+    <li>意图控制策略（核心）</li>
+    <li>总体架构设计（核心）</li>
+    <li>AI 生成代码的架构约束与质量门禁</li>
+    <li>可复现性论证（核心）</li>
+    <li>八大引擎功能说明</li>
+    <li>工程过程与 AI 协作方式</li>
+    <li>已知限制与后续规划</li>
+    <li>附录：命令速查与目录索引</li>
+  </ol>
+</section>
+
+<h2>1. 项目概述与产品定位</h2>
+
+<p class="lead">OmniFormOS 把"一句话描述业务问题"到"可运行的业务应用"之间的链路拆成八个专业引擎，每个引擎负责一类业务对象的完整生命周期：建模、编辑、运行、统计。桌面版将该能力封装为离线可用的 Windows 应用，数据以本地 SQLite 工作区保存。</p>
+
+<h3>1.1 产品定位</h3>
+<ul>
+  <li><b>目标用户</b>：高校院系与社团、中小企业业务管理岗、需要快速验证管理流程的个人开发者。</li>
+  <li><b>核心价值</b>：把表单/流程/题库/数据集这类"重复造轮子"的业务系统，压缩为一次意图描述 + 少量明确指令的迭代。</li>
+  <li><b>交付形态</b>：桌面安装包（内置运行环境，双击即用）+ 同构网页工作区（便于评审快速访问）。</li>
+</ul>
+
+<h3>1.2 八大引擎分工</h3>
+<table>
+  <tr><th style="width:22mm">引擎</th><th style="width:32mm">业务对象</th><th>核心能力</th></tr>
+  <tr><td>FormPilot</td><td>业务应用</td><td>需求 → 多实体应用蓝图；实体/字段/角色增量迭代；预览运行时增删改查</td></tr>
+  <tr><td>ExamCraft</td><td>测评</td><td>大纲/题库导入、AI 出题、试卷编排、答题、自动评分、成绩分析</td></tr>
+  <tr><td>FlowForm</td><td>审批流程</td><td>流程图生成、画布编辑、发布、串行审批、驳回撤回、审计导出</td></tr>
+  <tr><td>DocMorph</td><td>纸质/电子文档</td><td>PDF/DOCX/XLSX/图片导入、OCR、左右对照、字段校正、转表单</td></tr>
+  <tr><td>AdaptForm</td><td>表单</td><td>规则引擎、条件显隐、渲染器、提交数据分析</td></tr>
+  <tr><td>TableMind</td><td>数据表</td><td>表格导入、聚合计算、图表仪表盘、数据工作台</td></tr>
+  <tr><td>LabForm</td><td>科研实验</td><td>实验记录、参数管理、绘图、结果分析</td></tr>
+  <tr><td>AppCanvas</td><td>可视化应用</td><td>拖拽画布、组件协议、应用运行时与数据绑定</td></tr>
+</table>
+
+<h3>1.3 规模概况</h3>
+<table>
+  <tr><th style="width:38mm">维度</th><th>数值</th></tr>
+  <tr><td>前端模块文件</td><td>102 个 JS / 40+ 个 CSS（按引擎命名空间隔离）</td></tr>
+  <tr><td>服务端模块</td><td>27 个（八模块数据服务 + 认证 + 备份 + AI 配置路由）</td></tr>
+  <tr><td>自动化测试</td><td>41 个测试文件（node:test）</td></tr>
+  <tr><td>语法检查覆盖</td><td>130+ 文件（<code>npm run check</code>）</td></tr>
+  <tr><td>界面语言</td><td>中文 / English 双语，全局 DOM 级翻译引擎，约 2000 条词典</td></tr>
+</table>
+
+<h2 class="page-break">2. 意图控制策略</h2>
+
+<p class="lead">低代码平台的核心难题不是"能不能生成"，而是"生成结果是否可控、可回退、可解释"。本项目采用四层递进策略：收敛输入空间 → 约束输出结构 → 明确降级边界 → 全程可观测。</p>
+
+<h3>2.1 第一层：输入空间收敛</h3>
+<p>自然语言的自由度必须被收窄到模型或规则引擎可以稳定处理的范围内，否则同一句话会产出结构差异巨大的结果，用户无法预期。</p>
+<ul>
+  <li><b>场景模板入口</b>：主页提供客户、报销、库存、项目等预设芯片，点击即填入结构化示例需求，把"开放式描述"转化为"模板 + 差异描述"。</li>
+  <li><b>指令式迭代语法</b>：定义明确可解析的增量指令族，例如"添加字段：预算，类型：数字，必填""新增实体：合同""新增角色：经理""应用名称改为我的系统"。这类指令走确定性解析路径，不依赖模型，结果可预测。</li>
+  <li><b>结构化需求表达</b>：对复杂配置（如设置界面九大栏目），实际开发中采用表格化需求输入（见第 7 章），把模糊的"做得好一点"替换为可验收的字段清单。</li>
+</ul>
+
+<h3>2.2 第二层：输出结构约束</h3>
+<p>所有 AI 产出一律先转成结构化中间态，再进入渲染与持久化，禁止模型输出直接注入界面。</p>
+<table>
+  <tr><th style="width:30mm">环节</th><th style="width:36mm">中间态</th><th>校验内容</th></tr>
+  <tr><td>AI 出题</td><td>题目数组 JSON</td><td>题型枚举、题干非空、选项数量、答案存在性、分值区间；不合格条目退回，不进入题库</td></tr>
+  <tr><td>应用生成</td><td>应用蓝图 Schema</td><td>实体唯一性、字段类型合法性、关联目标存在性；校验通过才允许预览</td></tr>
+  <tr><td>流程生成</td><td>节点/边图结构</td><td>必须存在唯一开始节点与终止节点、无孤立节点、审批人非空；图校验失败禁止发布</td></tr>
+  <tr><td>文档解析</td><td>字段定义列表</td><td>类型推断、必填推断、取值范围；全部标注来源页与坐标，供人工复核</td></tr>
+</table>
+<p>校验失败时界面给出具体原因（哪一项、哪个字段），而不是笼统的"生成失败"，使用户能给出更精确的修正指令，形成闭环。</p>
+
+<h3>2.3 第三层：能力边界与降级</h3>
+<p>平台明确区分"确定性能力"与"模型能力"，并在模型不可用时给出可见降级，不伪装成功。</p>
+<ul>
+  <li><b>确定性能力</b>：表单校验、流程流转、评分计算、聚合统计、数据库增删改查——不依赖大模型，离线可用。</li>
+  <li><b>模型能力</b>：需求理解生成、AI 出题、文本抽取增强——依赖 OpenAI 兼容接口。</li>
+  <li><b>降级路径</b>：未配置密钥时，AI 出题入口明确提示"未配置模型"，同时提供本地模板出题；请求超时或网关错误时保留用户输入并提示重试，不产生半成品数据。</li>
+</ul>
+<div class="note">
+  <b>真实选型记录</b>：接入阶段实测四个上游——某上游密钥欠费直接失败；某上游在 <code>gpt-6.1-sol</code> 上单次出题超过 60 秒触发网关 504；改用 <code>gpt-6-astra</code> 后 21 秒完成并成功入库。因此把"请求超时"作为一等公民处理，而不是假设模型总是及时返回。
+</div>
+
+<h3>2.4 第四层：可观测与可回退</h3>
+<ul>
+  <li><b>连接状态卡</b>：设置 → AI 模型与 API 实时显示服务地址、模型名、密钥掩码、配置状态，并提供"刷新状态"。</li>
+  <li><b>诊断导出</b>：一键导出 JSON，包含版本、模型配置（脱敏）、工作区数据库清单、最近错误，便于复盘。</li>
+  <li><b>可回退</b>：流程实例使用发布时的流程快照，改版不影响在途申请；应用蓝图为增量变更，保留既有数据与字段 ID；工作区支持导出备份与恢复。</li>
+</ul>
+
+<h2 class="page-break">3. 总体架构设计</h2>
+
+<h3>3.1 分层结构</h3>
+<div class="fig">
+  <div class="layer"><b>表现层</b>原生 ES 模块 SPA（hash 路由）+ 桌面壳增强样式（<code>desktop-shell.css</code>）+ 八引擎独立命名空间</div>
+  <div class="arrow">↓ 同构复用同一套前端资源</div>
+  <div class="layer"><b>桌面层</b>Electron 主进程（窗口/托盘/数据目录）+ preload（最小权限桥）+ 内嵌本地服务（端口 3102）</div>
+  <div class="arrow">↓ HTTP</div>
+  <div class="layer"><b>服务层</b><code>server.mjs</code> 静态与路由（网页端 3100）+ <code>src/*-service.mjs</code> 八模块数据服务、认证、备份、<code>ai-config</code></div>
+  <div class="arrow">↓</div>
+  <div class="layer"><b>数据层</b>桌面：8 个 SQLite 数据库（<code>node:sqlite</code>，位于 <code>%APPDATA%\OmniFormOS Desktop\workspace\</code>）<br>网页：localStorage / sessionStorage 原型数据</div>
+  <div class="arrow">↓</div>
+  <div class="layer"><b>模型层</b><code>/api/ai/config</code> 统一配置 → OpenAI 兼容上游（base_url / model / api_key 运行时可切换）</div>
+  <div class="cap">图 1　OmniFormOS 五层架构</div>
+</div>
+
+<h3>3.2 双运行形态与单一源码</h3>
+<p>网页端与桌面端使用同一套 <code>public/</code> 与 <code>src/</code> 源码，差异仅在三处注入：</p>
+<ol>
+  <li>端口：网页 3100，桌面内嵌服务 3102；</li>
+  <li>数据根：桌面把数据库路径指向用户目录，网页使用浏览器存储；</li>
+  <li>样式与能力：preload 注入 <code>omni-desktop</code> 根类，启用桌面壳布局、窗口控制与个人中心抽屉。</li>
+</ol>
+<p>这样评审只需理解一套代码，也避免了原型与正式版功能漂移。仓库提供 <code>npm run desktop:sync</code>，以仓库为唯一真源把源码同步到本机安装副本。</p>
+
+<h3>3.3 模块边界</h3>
+<ul>
+  <li><b>命名空间隔离</b>：每个引擎使用独立前缀（<code>formpilot*</code>、<code>examcraft*</code>、<code>flowform*</code>、<code>docmorph*</code>、<code>adaptform*</code>、<code>tablemind*</code>、<code>labform*</code>、<code>appcanvas*</code> / <code>canvas-*</code>），避免样式与函数名冲突。</li>
+  <li><b>服务边界</b>：每个引擎对应一个 <code>src/*-service.mjs</code>，路由挂载集中在 <code>server.mjs</code>，模块之间不直接引用彼此内部实现。</li>
+  <li><b>数据边界</b>：每个引擎独立 SQLite 文件，跨模块协作通过工作台事件与显式数据授权入口（如 ExamCraft 结果嵌入 FormPilot 应用）。</li>
+  <li><b>共享能力</b>：主题变量、双语引擎、账户与设置作为工作台层提供，不下沉到具体引擎。</li>
+</ul>
+
+<h3>3.4 前端组织与路由</h3>
+<table>
+  <tr><th style="width:34mm">路由</th><th>含义</th><th style="width:30mm">对应引擎</th></tr>
+  <tr><td><code>#home</code></td><td>桌面工作台（AI 创作入口 + 快捷/扇形双形态引擎入口）</td><td>工作台</td></tr>
+  <tr><td><code>#pilot</code></td><td>应用生成与运行时</td><td>FormPilot</td></tr>
+  <tr><td><code>#exam</code></td><td>测评中心（含学生答题入口）</td><td>ExamCraft</td></tr>
+  <tr><td><code>#flowform</code></td><td>流程设计器与事务中心</td><td>FlowForm</td></tr>
+  <tr><td><code>#docmorph</code></td><td>文档导入与字段校正</td><td>DocMorph</td></tr>
+  <tr><td><code>#adaptform</code></td><td>智能表单设计与分析</td><td>AdaptForm</td></tr>
+  <tr><td><code>#tablemind</code></td><td>数据表与仪表盘</td><td>TableMind</td></tr>
+  <tr><td><code>#labform</code></td><td>实验记录与分析</td><td>LabForm</td></tr>
+  <tr><td><code>#appcanvas</code></td><td>可视化应用搭建</td><td>AppCanvas</td></tr>
+</table>
+
+<h2 class="page-break">4. AI 生成代码的架构约束与质量门禁</h2>
+
+<p class="lead">本项目大量代码由 AI 在明确约束下产出。约束的意义在于：让"生成"可控，让"评审"可验证。以下五条是实际执行中最有效的约束。</p>
+
+<h3>4.1 约束一：主题必须走变量分层</h3>
+<p>禁止在模块内写死颜色，统一使用主题变量（<code>--desk-*</code> 与 <code>--module-*</code>）。深色主题通过专用层级覆盖，不允许用全局 <code>!important</code> 粗暴重绘——这一条来自两个真实事故：</p>
+<ul>
+  <li><b>事故 A</b>：深色主题下窗口左上角红黄绿三色按钮全部变灰。根因是深色修复样式里存在一条针对所有 <code>button</code> 的 <code>!important</code> 背景规则，覆盖了专用色。修复方式不是加更强的 <code>!important</code>，而是把三颗按钮的专用选择器提升到明确的作用域，并将该全局规则限定在内容区。</li>
+  <li><b>事故 B</b>：深色侧边栏所有导航项都呈蓝紫色底，看起来全部处于「选中」状态。根因同样是全局按钮规则叠加。修复方式是建立中性石墨层级（背景 / 悬浮 / 选中三档）并让普通项透明化。</li>
+</ul>
+
+<h3>4.2 约束二：界面文案与业务数据分离</h3>
+<p>所有界面文案经统一翻译引擎处理（精确词条表 + 词组替换 + 动态节点监听），业务数据（用户输入、导入内容、持久化记录）不参与翻译。双语切换必须覆盖：文本节点、placeholder、title、aria-label。</p>
+<div class="note">
+  这条约束的实践代价很高：初版漏掉了动态渲染节点与属性文本，导致二级页面出现「可视化编辑器复用现有 React Flow」这类中英拼接。最终用自动化巡检（无头浏览器遍历 150+ 子页面入口，扫描 CJK 字符）替代人工目测，才把残留清零。
+</div>
+
+<h3>4.3 约束三：渲染安全</h3>
+<ul>
+  <li>所有用户可控内容进入 DOM 前统一转义（<code>esc()</code>），列表与详情页无例外；</li>
+  <li>动态 HTML 拼接仅允许来自内部模板函数，禁止直接插入模型输出；</li>
+  <li>桌面 preload 仅暴露最小必要能力（窗口控制、打开数据目录、版本号），不暴露 Node API。</li>
+</ul>
+
+<h3>4.4 约束四：变更必须可验证</h3>
+<table>
+  <tr><th style="width:34mm">门禁</th><th>内容</th><th style="width:26mm">命令</th></tr>
+  <tr><td>语法检查</td><td>130+ 文件逐一 <code>node --check</code>，覆盖前端与服务端</td><td><code>npm run check</code></td></tr>
+  <tr><td>单元测试</td><td>41 个测试文件：模型校验、服务层、工作台交互、物理动效、审计回归</td><td><code>npm test</code></td></tr>
+  <tr><td>实机验证</td><td>桌面端刷新后截图核对布局、深浅主题、双语、交互入口</td><td>人工/自动化截图</td></tr>
+  <tr><td>双部署一致性</td><td>仓库源码与安装副本逐文件比对，或一条命令同步</td><td><code>npm run desktop:sync</code></td></tr>
+  <tr><td>版本一致性</td><td>设置页版本号运行时读取 <code>package.json</code>，禁止多处手写</td><td>—</td></tr>
+</table>
+
+<h3>4.5 约束五：渐进式重构而非推倒重来</h3>
+<p>桌面主页的引擎入口经历"胶囊快捷入口 → 扇形卡片 → 双形态可切换"的演进。最终方案保留原形态并新增形态，用户偏好持久化，避免为视觉新鲜感牺牲已习惯的操作路径。这类决策的判断标准是：新增能力不降低既有效率。</p>
+
+<h2 class="page-break">5. 可复现性论证</h2>
+
+<h3>5.1 环境要求</h3>
+<table>
+  <tr><th style="width:34mm">项目</th><th>要求</th><th style="width:44mm">说明</th></tr>
+  <tr><td>操作系统</td><td>Windows 10/11（桌面版）；任意支持 Node 的系统（网页版）</td><td>开发与验证均在 Windows 11 完成</td></tr>
+  <tr><td>Node.js</td><td>24 及以上（桌面运行建议 22+）</td><td><code>engines.node &gt;= 24</code>，SQLite 依赖内置 <code>node:sqlite</code>，无需编译原生模块</td></tr>
+  <tr><td>依赖安装</td><td><code>npm install</code></td><td>全部为 npm 公开包，无私有源、无需全局工具</td></tr>
+  <tr><td>大模型</td><td>可选，OpenAI 兼容接口</td><td>不配置时核心功能可用，AI 能力降级并明确提示</td></tr>
+  <tr><td>磁盘</td><td>≈1.2 GB（含 <code>node_modules</code> 与 Electron）</td><td>安装副本约 441 MB</td></tr>
+</table>
+
+<h3>5.2 环境变量</h3>
+<p>模板见仓库根目录 <code>.env.example</code>，字段与用途：</p>
+<pre>OMNIFORM_AI_BASE_URL=    # OpenAI 兼容地址，通常以 /v1 结尾
+OMNIFORM_AI_API_KEY=     # 密钥，仅保存在本机 .env 或桌面 ai-config.json
+OMNIFORM_AI_MODEL=       # 模型名，例如 gpt-6-astra
+PORT=3100                # 网页端端口
+# 可选：Supabase 邮箱认证（详见 docs/邮箱认证接入与部署.md）
+SUPABASE_URL=
+SUPABASE_PUBLISHABLE_KEY=</pre>
+<p class="small">桌面版不使用 .env 作为唯一来源：优先读取 <code>%APPDATA%\OmniFormOS Desktop\ai-config.json</code>，可在设置界面直接修改并即时应用，密钥在界面中掩码显示。</p>
+
+<h3>5.3 复现步骤（10 分钟内）</h3>
+<ol>
+  <li><b>获取源码</b>：<code>git clone &lt;仓库地址&gt;</code>，进入目录。</li>
+  <li><b>安装依赖</b>：<code>npm install</code>（约 2-4 分钟，取决于网络）。</li>
+  <li><b>预构建画布资产</b>（可选）：<code>npm run build</code>；仓库已含预构建产物，仅修改 React Flow 源码时需要。</li>
+  <li><b>配置模型</b>（可选）：复制 <code>.env.example</code> 为 <code>.env</code> 并填入三项 AI 变量。</li>
+  <li><b>启动</b>：网页 <code>npm run dev</code> → <code>http://127.0.0.1:3100</code>；桌面 <code>npm run desktop</code>。</li>
+  <li><b>验证</b>：<code>npm run check</code> 与 <code>npm test</code> 应全部通过。</li>
+</ol>
+
+<h3>5.4 复现验证矩阵</h3>
+<table>
+  <tr><th style="width:34mm">验证点</th><th>操作</th><th style="width:44mm">预期结果</th></tr>
+  <tr><td>服务健康</td><td><code>GET /api/health</code></td><td>返回 200 与版本信息</td></tr>
+  <tr><td>应用生成</td><td><code>#pilot</code> 输入"创建校园竞赛管理系统"</td><td>生成多实体蓝图，可预览并新增记录</td></tr>
+  <tr><td>AI 出题</td><td><code>#exam</code> 粘贴大纲 → AI 出题</td><td>20 秒级返回题目，入库前通过结构校验</td></tr>
+  <tr><td>流程运行</td><td><code>#flowform</code> 生成报销流 → 发布 → 发起 → 审批</td><td>状态按节点流转，可驳回/撤回，时间轴有记录</td></tr>
+  <tr><td>文档解析</td><td><code>#docmorph</code> 导入扫描件</td><td>OCR 出文本，左右对照，字段可校正后转表单</td></tr>
+  <tr><td>双语切换</td><td>设置 → 外观与语言 → English</td><td>全界面（含二级页面、属性文本）切换为英文</td></tr>
+  <tr><td>持久化</td><td>桌面版新增数据后重启应用</td><td>数据保留在工作区 SQLite 中</td></tr>
+  <tr><td>桌面打包</td><td><code>npm run desktop:build</code></td><td>生成 <code>output/desktop/OmniFormOS-Desktop-1.2.0-x64-Setup.exe</code></td></tr>
+</table>
+
+<h3>5.5 数据与隐私边界</h3>
+<ul>
+  <li>桌面版数据仅存本机 <code>%APPDATA%\OmniFormOS Desktop\</code>，不上传服务器；</li>
+  <li>AI 请求仅发送用户主动提交的内容（需求描述、大纲文本、待解析文档文本），不发送本地数据库整体；</li>
+  <li>账户密码以加盐 SHA-256 哈希保存在本地，个人资料导出功能明确排除密码哈希、盐与头像数据。</li>
+</ul>
+
+<h2 class="page-break">6. 八大引擎功能说明</h2>
+
+<h3>6.1 FormPilot —— 需求到应用</h3>
+<p>输入业务需求或选择场景模板，生成多实体应用蓝图（实体、字段、关联、角色操作、页面结构）。支持指令式增量迭代（"添加字段：预算，类型：数字，必填"），新增实体自动配套列表/表单/详情页。预览运行时可增删改查，关联字段从目标实体选择，被引用记录禁止删除以保护引用完整性。</p>
+
+<h3>6.2 ExamCraft —— 测评全流程</h3>
+<p>支持 TXT 大纲与 JSON 题库导入；AI 出题（结构校验后入库）与本地模板出题双路径；题库编辑与即时预览；试卷拖拽排序与题型分值配置；发布后学生端答题；客观题自动评分、简答题关键词建议与人工确认；成绩分析与覆盖度看板。</p>
+
+<h3>6.3 FlowForm —— 审批流程</h3>
+<p>按描述生成流程草稿，在画布上编辑节点、分支与审批人；发布前做图结构校验（起止节点、连通性、审批人非空）；发布后可发起申请，按串行节点流转，支持驳回、撤回、时间轴、本地通知与审计导出。实例绑定发布快照，流程改版不破坏在途单据。</p>
+
+<h3>6.4 DocMorph —— 文档数字化</h3>
+<p>导入 PDF、DOCX、XLSX、扫描图片与 TXT；本地中英文 OCR；原件预览与左右对照，字段标注来源页码与坐标；字段类型、选项、限制可人工校正与复核；校正结果可直接送入表单设计器生成可填报表单。原件保存在本地 IndexedDB，不上传。</p>
+
+<h3>6.5 AdaptForm —— 智能表单</h3>
+<p>表单规则引擎支持条件显隐、必填联动与校验；提供渲染器把表单定义渲染为可填报页面；提交数据进入分析视图，可查看分布与完成度。</p>
+
+<h3>6.6 TableMind —— 数据分析</h3>
+<p>导入表格数据，自动识别字段类型；支持聚合计算（求和、均值、计数、分组）、图表与仪表盘组合；数据工作台提供筛选、排序与导出，服务于快速验证数据假设。</p>
+
+<h3>6.7 LabForm —— 科研实验</h3>
+<p>记录实验批次、条件参数与观测结果；支持绘图与拟合展示；结果数据可导出用于报告撰写，适合课程实验与小型课题组日常记录。</p>
+
+<h3>6.8 AppCanvas —— 可视化应用搭建</h3>
+<p>拖拽式画布，组件遵循统一协议（属性、数据绑定、事件）；构建结果可由应用运行时加载，形成可交互页面；画布作品保留用户自定义配色，不被深色主题强制覆盖。</p>
+
+<h2 class="page-break">7. 工程过程与 AI 协作方式</h2>
+
+<h3>7.1 演进记录</h3>
+<p>仓库按模块划分提交：项目基础 → 服务端 → 八个引擎（每引擎独立提交）→ 统一工作台 → 桌面端 → 文档 → 大赛材料 → 版本统一与项目合并。提交信息采用 <code>feat/fix/docs/refactor(scope)</code> 规范，便于评审追溯某项能力的实现范围。</p>
+
+<h3>7.2 与 AI 协作的五种有效模式</h3>
+<table>
+  <tr><th style="width:30mm">模式</th><th>做法</th><th style="width:52mm">典型案例</th></tr>
+  <tr><td>规范先行</td><td>先给完整的界面规范与状态清单，再实现</td><td>登录/注册/验证/找回密码六种状态一次成型</td></tr>
+  <tr><td>截图驱动修 Bug</td><td>截图 + 现象描述 → AI 定位根因 → 修复 → 实机截图复验</td><td>红绿灯变色、侧边栏染色、输入框色块割裂</td></tr>
+  <tr><td>真实数据实测</td><td>不照搬配置，先实测上游可用性与延迟再选型</td><td>四上游对比，改选 21 秒可用的模型</td></tr>
+  <tr><td>自动化巡检</td><td>用脚本代替目测，覆盖人眼难以穷举的子页面</td><td>i18n 巡检遍历 150+ 入口，残留清零</td></tr>
+  <tr><td>变更即验证</td><td>语法检查 + 实机验证 + 双部署一致性，三者缺一不合入</td><td>每次改动均执行 <code>npm run check</code></td></tr>
+</table>
+
+<h3>7.3 两个典型 Bug 复盘</h3>
+<h4>案例一：深色主题元素被全局规则染色</h4>
+<p><b>现象</b>：窗口控制按钮失去红黄绿；侧边栏所有导航项呈蓝紫色；主页输入框内部出现与背景割裂的色块。<br>
+<b>根因</b>：深色主题修复样式引入了针对通用标签（<code>button</code>、<code>input</code>、<code>textarea</code>）的高优先级规则，作用域过宽，覆盖了组件专用样式。<br>
+<b>修复</b>：为组件建立专用作用域与更高的界面层级选择器；把通用规则限定在内容区；输入区建立独立的中性色层级（输入面 / 边框 / 占位文字 / 控件）并整体校色。<br>
+<b>教训</b>：主题修复应从变量分层入手，禁止用全局 <code>!important</code> 覆盖。</p>
+
+<h4>案例二：双语切换在二级页面失效</h4>
+<p><b>现象</b>：一级页面正常，进入模块内部后出现中英拼接与未翻译文本。<br>
+<b>根因</b>：三重叠加——词典缺失深层词条、动态渲染节点绕过翻译、ES 模块磁盘缓存复用旧词典。<br>
+<b>修复</b>：补齐深层词典；放宽对动态业务节点的跳过规则并把整句优先于词组匹配；给翻译入口与模块导入加版本号强制刷新；编写无头浏览器巡检脚本逐层扫描。<br>
+<b>教训</b>：涉及运行时状态的问题，必须用自动化巡检而非人工目测验收。</p>
+
+<h2>8. 已知限制与后续规划</h2>
+<h3>8.1 当前限制</h3>
+<ul>
+  <li>桌面版为单机应用，不含多用户实时协同与服务端权限隔离；角色配置为建模属性，不执行真实鉴权。</li>
+  <li>AI 能力依赖第三方兼容接口，可用性与延迟受上游影响；出题质量仍需人工复核。</li>
+  <li>DocMorph 对手写体与旧版 DOC/XLS 支持有限，OCR 结果必须人工核对。</li>
+  <li>FlowForm 审批为串行模型，未实现并行会签与外部通知渠道。</li>
+</ul>
+<h3>8.2 规划</h3>
+<ul>
+  <li>模型路由：按任务类型（出题/抽取/生成）自动选择模型并带超时重试。</li>
+  <li>工作区多项目管理与模板市场：把已验证的应用蓝图导出为可复用模板。</li>
+  <li>审计与回滚增强：蓝图版本历史与一键回滚。</li>
+</ul>
+
+<h2 class="page-break">9. 附录</h2>
+<h3>9.1 命令速查</h3>
+<pre>npm install            安装依赖
+npm run dev            网页工作区 http://127.0.0.1:3100
+npm run desktop        桌面开发窗口（内嵌服务 3102）
+npm run desktop:build  打包 Windows 安装程序
+npm run desktop:sync   把仓库源码同步到本机安装副本
+npm run build          预构建画布与图表资产
+npm run check          全量语法检查（130+ 文件）
+npm test               单元测试（41 个测试文件）</pre>
+
+<h3>9.2 关键文件索引</h3>
+<table>
+  <tr><th style="width:52mm">路径</th><th>职责</th></tr>
+  <tr><td><code>server.mjs</code></td><td>本地服务入口，路由挂载</td></tr>
+  <tr><td><code>src/ai-config.mjs</code></td><td>模型配置读写与应用（<code>/api/ai/config</code>）</td></tr>
+  <tr><td><code>src/*-service.mjs</code></td><td>八模块数据服务</td></tr>
+  <tr><td><code>public/app.js</code></td><td>前端路由与页面装配</td></tr>
+  <tr><td><code>public/desktop-home.js</code></td><td>桌面工作台主页与会话状态</td></tr>
+  <tr><td><code>public/omni-auth.js</code> / <code>.css</code></td><td>账户、设置（九大栏目）、个人中心抽屉</td></tr>
+  <tr><td><code>public/omni-i18n*.js</code></td><td>全局双语引擎与词典</td></tr>
+  <tr><td><code>public/desktop-shell.css</code></td><td>桌面壳布局与深浅主题</td></tr>
+  <tr><td><code>desktop/main.cjs</code> / <code>preload.cjs</code></td><td>Electron 主进程与最小权限桥</td></tr>
+  <tr><td><code>docs/</code></td><td>模块说明、验收记录、大赛材料</td></tr>
+</table>
+
+<p class="small" style="margin-top:8mm">本文档对应 OmniFormOS 桌面版 v1.2.0；版本号由应用运行时读取 <code>package.json</code> 生成，与安装包一致。</p>
+
+</body>
+</html>
