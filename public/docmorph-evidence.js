@@ -1,0 +1,1 @@
+export function fieldEvidence(segment,documentId){return {documentId,segmentId:segment.id,text:segment.text,page:segment.page,location:segment.location,sheet:segment.sheet||null,cell:segment.cell||null,bbox:segment.bbox||null,confidence:segment.confidence??null,engine:segment.engine||'native-text'};}
