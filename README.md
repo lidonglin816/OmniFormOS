@@ -4,6 +4,49 @@
 
 Windows 桌面版安装包：`output/desktop/OmniFormOS-Desktop-1.0.0-x64-Setup.exe`。内置运行环境，数据存放在用户目录。使用、迁移和限制见 [桌面版说明](docs/Windows桌面版使用与验收.md)。开发桌面窗口使用 `npm run desktop`，重新打包使用 `npm run desktop:build`。
 
+## ⚡ 10 分钟极速复现指南
+
+**第 1 步（2 分钟）环境准备**
+
+- 安装 [Node.js 24+](https://nodejs.org/)（桌面端建议 22+，网页端 24+）
+- 克隆本仓库：`git clone <仓库地址>` 后进入项目目录
+
+**第 2 步（3 分钟）安装依赖**
+
+```powershell
+npm install        # 依赖清单见 package.json，全本地安装，无需全局工具
+npm run build      # 预构建画布资产（仓库已含预构建产物，仅在改动 React Flow 源码时需要）
+```
+
+**第 3 步（2 分钟）环境变量（可选）**
+
+```powershell
+copy .env.example .env
+```
+
+- `.env` 中填入 `OMNIFORM_AI_BASE_URL` / `OMNIFORM_AI_API_KEY` / `OMNIFORM_AI_MODEL`（OpenAI 兼容接口）
+- **不配置也能运行全部核心功能**，AI 出题等能力会以本地规则引擎降级并明确提示
+
+**第 4 步（1 分钟）启动**
+
+```powershell
+npm run dev        # 网页端 http://127.0.0.1:3100（旧版 3000）
+npm run desktop    # 或启动 Windows 桌面壳（Electron）
+```
+
+**第 5 步（2 分钟）验证**
+
+```powershell
+npm run check      # 全量语法检查
+npm test           # 单元测试
+```
+
+浏览器打开工作台，输入"创建校园竞赛管理系统"生成第一个应用，或进入 `#exam` 体验 AI 出题。完整体验流程见下方"体验流程"章节。
+
+> 常见问题：端口被占用改 `PORT` 环境变量；浏览器数据清理会删除 localStorage 原型数据，正式数据使用桌面版 SQLite 工作区。
+
+
+
 网页工作区双击 `Start-OmniForm.cmd`，使用 `http://127.0.0.1:3100`；桌面版使用独立的 3102 服务和数据目录。
 
 ## DocMorph v0.5
