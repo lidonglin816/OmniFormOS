@@ -1,0 +1,2 @@
+import {readFileSync} from 'node:fs';import {resolve} from 'node:path';import {restoreWorkspace} from '../src/workspace-backup.mjs';
+const [file,directory]=process.argv.slice(2);if(!file||!directory){console.error('用法：node scripts/restore-workspace.mjs <备份.ofbackup> <新的恢复目录>');process.exitCode=1;}else{try{console.log(JSON.stringify(restoreWorkspace(readFileSync(resolve(file)),resolve(directory)),null,2));}catch(e){console.error(e.message);process.exitCode=1;}}

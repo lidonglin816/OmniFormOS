@@ -1,0 +1,15 @@
+import JSZip from 'jszip';
+import ExcelJS from 'exceljs';
+import { mkdir, writeFile } from 'node:fs/promises';
+const dir = 'artifacts/docmorph-fixtures'; await mkdir(dir, { recursive: true });
+const lines = ['Full Name (required): ________', 'Email (required): ________', 'Department (select): Engineering / Finance'];
+await writeFile(`${dir}/form.txt`, lines.join('\n'));
+const zip = new JSZip(); zip.file('[Content_Types].xml', '<?xml version="1.0"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/></Types>');
+zip.file('_rels/.rels', '<?xml version="1.0"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>');
+zip.file('word/document.xml', `<?xml version="1.0"?><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body>${lines.map(s => `<w:p><w:r><w:t>${s}</w:t></w:r></w:p>`).join('')}</w:body></w:document>`);
+await writeFile(`${dir}/form.docx`, await zip.generateAsync({ type: 'nodebuffer' }));
+const workbook = new ExcelJS.Workbook(); const sheet = workbook.addWorksheet('Form'); sheet.addRow(['Full Name', 'required']); sheet.addRow(['Email', 'required']); sheet.addRow(['Department (select)', 'Engineering / Finance']); await workbook.xlsx.writeFile(`${dir}/form.xlsx`);
+const stream = `BT /F1 15 Tf 50 760 Td ${lines.map((s, i) => `${i ? '0 -40 Td ' : ''}(${s.replaceAll('(', '\\(').replaceAll(')', '\\)')}) Tj`).join('\n')} ET`;
+const objects = ['<< /Type /Catalog /Pages 2 0 R >>', '<< /Type /Pages /Kids [3 0 R] /Count 1 >>', '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>', '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>', `<< /Length ${Buffer.byteLength(stream)} >>\nstream\n${stream}\nendstream`];
+let pdf = '%PDF-1.4\n'; const offsets = [0]; for (const [i, o] of objects.entries()) { offsets.push(Buffer.byteLength(pdf)); pdf += `${i + 1} 0 obj\n${o}\nendobj\n`; } const xref = Buffer.byteLength(pdf); pdf += `xref\n0 6\n0000000000 65535 f \n${offsets.slice(1).map(n => String(n).padStart(10, '0') + ' 00000 n \n').join('')}trailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF`; await writeFile(`${dir}/form.pdf`, pdf);
+console.log('DocMorph TXT, DOCX, XLSX and PDF fixtures created.');

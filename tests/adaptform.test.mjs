@@ -1,0 +1,10 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { seedAdaptForm, evaluateAdaptForm, addRule, evaluateForm, detectRuleIssues, makeRegistrationForm } from '../public/adaptform-model.js';
+
+test('个人与团队报名显示不同区块', () => { const s = seedAdaptForm(); assert.deepEqual(evaluateAdaptForm(s).visible, ['base', 'personal']); s.answers.mode = '团队报名'; assert.deepEqual(evaluateAdaptForm(s).visible, ['base', 'team']); });
+test('报销显示发票字段，借用超过七天切换审批路线', () => { const s = seedAdaptForm(); s.answers.reimbursement = '是'; s.answers.borrowDays = 8; const r = evaluateAdaptForm(s); assert.ok(r.visible.includes('invoice')); assert.match(r.route, /主管审批/); });
+test('新增规则校验字段与动作', () => { const s = seedAdaptForm(); assert.throws(() => addRule(s, { field: 'bad', op: 'equals', effect: 'show' }), /有效/); addRule(s, { field: 'mode', op: 'equals', value: '个人报名', effect: 'show', target: 'personal' }); assert.equal(s.rules.length, 5); });
+test('高级规则按优先级组合执行并清除隐藏字段值',()=>{const form=makeRegistrationForm();form.rules.push({id:'route-team',name:'团队大额路径',priority:50,logic:'and',conditions:[{fieldId:'mode',op:'eq',value:'团队报名'},{fieldId:'borrowDays',op:'gte',value:8}],actions:[{type:'route',value:'团队负责人 → 资产主管'}]});const result=evaluateForm(form,{mode:'个人报名',reimbursement:'否',teamName:'应被清空',borrowDays:9});assert.equal(result.values.teamName,'');assert.equal(result.fieldState.name.visible,true);assert.match(result.route,/主管审批/);const team=evaluateForm(form,{mode:'团队报名',reimbursement:'是',borrowDays:9});assert.equal(team.route,'团队负责人 → 资产主管');assert.equal(team.fieldState.invoice.required,true);});
+test('规则检查发现无效引用和字段依赖循环',()=>{const form=makeRegistrationForm();form.rules.push({id:'bad',name:'错误规则',priority:99,logic:'and',conditions:[{fieldId:'missing',op:'eq',value:'x'}],actions:[{type:'show',targetId:'mode'}]},{id:'cycle',name:'循环规则',priority:100,logic:'and',conditions:[{fieldId:'teamName',op:'eq',value:'x'}],actions:[{type:'show',targetId:'mode'}]});const issues=detectRuleIssues(form);assert.ok(issues.some(x=>/无效字段/.test(x.message)));assert.ok(issues.some(x=>/循环/.test(x.message)));});
+

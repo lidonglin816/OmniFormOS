@@ -1,0 +1,13 @@
+import { build } from 'esbuild';
+import { cp, mkdir, readdir } from 'node:fs/promises';
+const out = 'public/vendor/docmorph';
+await mkdir(`${out}/ocr/lang`, { recursive: true });
+await build({ entryPoints: ['src/doc-parser.js'], outfile: `${out}/parser.js`, bundle: true, format: 'esm', platform: 'browser', minify: true, define: { 'process.env.NODE_ENV': '"production"' }, legalComments: 'eof' });
+await cp('node_modules/pdfjs-dist/legacy/build/pdf.worker.min.mjs', `${out}/pdf.worker.min.mjs`);
+await cp('node_modules/pdfjs-dist/cmaps', `${out}/cmaps`, { recursive: true });
+await cp('node_modules/pdfjs-dist/standard_fonts', `${out}/standard_fonts`, { recursive: true });
+await cp('node_modules/pdfjs-dist/wasm', `${out}/wasm`, { recursive: true });
+await cp('node_modules/tesseract.js/dist/worker.min.js', `${out}/ocr/worker.min.js`);
+for (const name of await readdir('node_modules/tesseract.js-core')) if (/\.wasm(?:\.js)?$/.test(name)) await cp(`node_modules/tesseract.js-core/${name}`, `${out}/ocr/${name}`);
+for (const lang of ['chi_sim', 'eng']) await cp(`node_modules/@tesseract.js-data/${lang}/4.0.0/${lang}.traineddata.gz`, `${out}/ocr/lang/${lang}.traineddata.gz`);
+console.log('DocMorph parsers, PDF worker and local Chinese/English OCR assets built.');

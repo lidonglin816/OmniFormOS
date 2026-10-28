@@ -1,0 +1,13 @@
+import {readFile} from 'node:fs/promises';
+import {DOMMatrix,Path2D,ImageData} from '@napi-rs/canvas';
+Object.assign(globalThis,{DOMMatrix,Path2D,ImageData});
+if(!Uint8Array.prototype.toHex)Uint8Array.prototype.toHex=function(){return Buffer.from(this).toString('hex');};
+if(!Math.sumPrecise)Math.sumPrecise=values=>Array.from(values).reduce((a,b)=>a+b,0);
+const pdfjs=await import('pdfjs-dist/legacy/build/pdf.mjs');
+const {parseFile}=await import('../src/doc-parser.js');
+pdfjs.GlobalWorkerOptions.workerSrc=new URL('../node_modules/pdfjs-dist/legacy/build/pdf.worker.mjs',import.meta.url).href;
+const {makeDocument}=await import('../public/docmorph-model.js');
+const bytes=await readFile('output/pdf/DocMorph-校园竞赛可填写表单.pdf');
+const parsed=await parseFile(new File([bytes],'校园竞赛.pdf',{type:'application/pdf'}));const doc=makeDocument('校园竞赛.pdf',parsed.kind,parsed.segments);
+console.log(JSON.stringify({pages:parsed.pages,fields:doc.fields.map(f=>({label:f.label,type:f.type,required:f.required,hasCoordinates:!!f.source.bbox})),segments:parsed.segments.length}));
+if(doc.fields.length<8||doc.fields.some(f=>!f.source.bbox))throw Error('PDF 字段或来源坐标不完整');
