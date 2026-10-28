@@ -24,6 +24,8 @@ async function hashPass(pass,salt){
 const makeSalt=()=>crypto?.randomUUID?crypto.randomUUID().replace(/-/g,''):String(Date.now())+Math.random().toString(36).slice(2);
 const makeCode=()=>String(Math.floor(100000+Math.random()*900000));
 const emitChanged=()=>window.dispatchEvent(new CustomEvent('omni-auth-changed'));
+// 版本号优先取桌面壳随包发布的真实版本，网页端回退到当前发布版本
+const APP_VER=()=>{try{return window.omniDesktop?.appVersion||'1.2.0';}catch{return '1.2.0';}};
 // ---- local preference helpers + startup application ----
 const LS={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v);}catch{return d;}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch{}}};
 const fmtBytes=n=>n>=1073741824?(n/1073741824).toFixed(2)+' GB':n>=1048576?(n/1048576).toFixed(1)+' MB':Math.max(1,Math.round(n/1024))+' KB';
@@ -119,7 +121,7 @@ en:{
   logTitle:'Service log',logDesc:'Service and module logs are written to desktop-service.log next to your workspace settings.',
   diagBtn:'Export diagnostics',diagDone:'Diagnostics file downloaded.',
   verOk:'You are up to date.',checkUpd:'Check for updates',changelog:'What\u2019s new',
-  changelogText:'v1.1.0 — Settings rebuilt into nine categories · AI provider presets with live apply · global interface language (EN/中文) · workspace backup & diagnostics export.',
+  changelogText:'v1.2.0 — Dual home layouts (quick / fan) · model picker in the composer · account drawer with avatar and nickname · unified dark palette.\nv1.1.0 — Settings rebuilt into nine categories · AI provider presets with live apply · global interface language · workspace backup & diagnostics.',
   docsLink:'User guide',fbLink:'Send feedback',openMod:'Open',
   modulesNote:'Per-module business rules and defaults are managed inside each module\u2019s own settings page.',
   setStatus:'Connection status',setRefresh:'Refresh status',
@@ -225,7 +227,7 @@ zh:{
   logTitle:'服务日志',logDesc:'服务与模块日志写入工作区设置同目录下的 desktop-service.log。',
   diagBtn:'导出诊断信息',diagDone:'诊断文件已下载。',
   verOk:'当前已是最新版本。',checkUpd:'检查更新',changelog:'更新记录',
-  changelogText:'v1.1.0 — 设置重构为九大栏目 · AI 服务商预设并即时生效 · 全局界面语言（中/英）· 工作区备份与诊断导出。',
+  changelogText:'v1.2.0 — 主页双形态引擎入口（快捷 / 扇形）· 输入区模型选择器 · 个人中心抽屉与头像昵称 · 深色主题统一配色。\nv1.1.0 — 设置重构为九大栏目 · AI 服务商预设并即时生效 · 全局界面语言 · 工作区备份与诊断导出。',
   docsLink:'使用说明',fbLink:'反馈建议',openMod:'打开',
   modulesNote:'各模块的业务规则与默认参数在各模块自身的设置页中管理。',
   pwUpdated:'密码更新成功，请使用新密码登录。',
@@ -670,11 +672,11 @@ VIEWS.settings=function(){
       <p class="sa-ai-status" data-diag-status role="status"></p></div>`;
   }else{
     main=`<h3>${t('setNavAbout')}</h3><p class="sa-set-desc">${t('setNavAboutDesc')}</p>
-    <div class="sa-panel-card"><div class="sa-row"><span class="k">${t('verTitle')}</span><span class="v">OmniFormOS · v1.1.0</span></div>
+    <div class="sa-panel-card"><div class="sa-row"><span class="k">${t('verTitle')}</span><span class="v">OmniFormOS · v${APP_VER()}</span></div>
       <div class="sa-pc-head" style="margin-top:12px"><div></div>
         <button type="button" class="sa-btn-ghost" data-check-upd>${t('checkUpd')}</button></div>
       <p class="sa-ai-status" data-upd-status role="status"></p></div>
-    <div class="sa-panel-card"><b class="sa-pc-title">${t('changelog')}</b><p class="sa-pc-sub">${t('changelogText')}</p></div>
+    <div class="sa-panel-card"><b class="sa-pc-title">${t('changelog')}</b><p class="sa-pc-sub">${t('changelogText').split('\n').join('<br>')}</p></div>
     <div class="sa-panel-card">
       <div class="sa-row">${I.info}<span class="k">${t('docsLink')}</span><span class="v"><button type="button" class="sa-link" data-open-mod="#landing">${t('openMod')}</button></span></div>
       <div class="sa-row">${I.mail}<span class="k">${t('fbLink')}</span><span class="v"><a class="sa-link" href="mailto:feedback@omniformos.app">Email</a></span></div>
