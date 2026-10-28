@@ -1,0 +1,207 @@
+/* Task-specific structures. Approved homepage and other modules are excluded. */
+#app:is([data-platform-route=exam],[data-platform-route=flowform],[data-platform-route=docmorph],[data-platform-route=adaptform],[data-platform-route=tablemind],[data-platform-route=labform]) .main-shell>main{padding:24px 28px;max-width:none;min-width:0}
+#app :is(.ec-pro,.ffp-root,.dmp-root,.afp-root,.tmp-root,.lfp-root){color:#302a3e;min-width:0}
+#app :is(.ec-heading,.ffp-head,.dmp-head,.afp-header,.tmp-header,.lfp-header){padding:0 0 18px;margin:0;gap:16px}
+#app :is(.ec-heading,.ffp-head,.dmp-head,.afp-header,.tmp-header,.lfp-header) h1{font:650 25px/1.3 Inter,"Microsoft YaHei",sans-serif;color:#29253a;margin:5px 0}
+#app :is(.ec-heading,.ffp-head,.dmp-head,.afp-header,.tmp-header,.lfp-header) h1 :is(span,small,em){font-size:12px;color:#797285}
+#app :is(.ffp-main,.dmp-root>main,.afp-root>main,.tmp-root>main,.lfp-root>main){padding:18px 0 0;min-width:0}
+#app .wui-inline-tools{display:flex;gap:4px}#app .wui-inline-tools button{height:32px;min-width:32px;padding:4px 8px;border:1px solid #e5e0ed;border-radius:8px;background:#fff;color:#78628c;font-size:11px}
+#app .wui-focus-exit{display:none}body.wui-focus-mode #app>.wui-focus-exit{display:block;position:fixed;right:22px;top:10px;z-index:100;padding:9px 14px;border:1px solid #cfc1e3;border-radius:9px;background:#fff;color:#654989;box-shadow:0 3px 12px #46325716}
+#app:is([data-platform-route=flowform],[data-platform-route=docmorph],[data-platform-route=labform]) .wui-segmented>button{border:0!important;color:#726380;font-size:12px}
+#app[data-platform-route=tablemind] .tmp-nav.wui-segmented>button{border-top:0!important;border-bottom:0!important;border-left:0!important}
+#app :is(.ec-assessment-home,.ffp-command-home,.dmp-document-inbox,.afp-adaptive-home,.tmp-data-home,.lfp-research-home) :is(td,th){font-size:12px;color:#62586f}
+#app :is(.ec-assessment-home,.ffp-command-home,.dmp-document-inbox,.afp-adaptive-home,.tmp-data-home,.lfp-research-home) small{font-size:11px}
+#app[data-platform-route=docmorph] .dmp-intake-station::after{display:none}
+#app[data-platform-route=adaptform] .afp-stats article{width:auto;min-width:80px;max-width:none}
+#app[data-platform-route=adaptform] .afp-stats small{white-space:nowrap}
+#app[data-platform-route=adaptform] .afp-home-workbench.wui-parent-folded{grid-template-columns:205px minmax(0,1fr) 44px!important}
+#app[data-platform-route=adaptform] [data-experience=response] .afp-home-workbench.wui-parent-folded{grid-template-columns:205px 44px minmax(0,1fr)!important}
+#app[data-platform-route=labform] .lfp-research-grid.wui-parent-folded{grid-template-columns:minmax(0,1fr)!important}
+#app[data-platform-route=labform] .lfp-research-ledger.wui-panel-folded{width:auto!important;max-width:none!important;min-height:44px!important}
+#app .module-view-control{display:flex;gap:3px;align-items:center;flex-shrink:0;background:#f1eef6;padding:3px;border-radius:8px;margin-left:auto;width:max-content;max-width:100%}
+#app .module-view-control button{padding:7px 10px!important;font-size:11px!important;border:0!important;border-radius:6px!important;background:transparent!important;color:#746c83!important;white-space:nowrap}
+#app .module-view-control button[aria-pressed=true]{background:#fff!important;color:#563e87!important;box-shadow:0 1px 5px #31213f12}
+/* ExamCraft: a vertical subject rail, paper shelf, and marking ledger. */
+#app[data-platform-route=exam] .ec-heading>div>p,#app[data-platform-route=exam] .ec-shell-top{display:none}
+#app[data-platform-route=exam] .ec-shell{display:grid;grid-template-columns:150px minmax(0,1fr);border:1px solid #e6dfeb;background:#fff;border-radius:14px;overflow:clip}
+#app[data-platform-route=exam] .ec-nav.wui-segmented{grid-column:1;grid-row:1/6;display:flex!important;flex-direction:column!important;align-items:stretch!important;background:#f8f6fb;border:0;border-right:1px solid #e9e3f0;border-radius:0;padding:15px 9px;position:static;gap:7px}
+#app[data-platform-route=exam] .ec-nav.wui-segmented>button{white-space:normal;text-align:left;padding:12px 9px!important;font-size:11px;line-height:1.5}
+#app[data-platform-route=exam] :is(.ec-content,.ec-busy,.ec-error,.ec-footnote){grid-column:2;min-width:0}
+#app[data-platform-route=exam] .ec-content{padding:22px}
+#app[data-platform-route=exam] .ec-academic-masthead{padding:0 0 16px;border-bottom:0}#app[data-platform-route=exam] .ec-paper-seal{display:none}
+#app[data-platform-route=exam] .ec-academic-masthead h2{font:650 22px/1.5 Inter,"Microsoft YaHei",sans-serif;margin:6px 0;color:#34283e}
+#app[data-platform-route=exam] .ec-academic-masthead p{margin:0;font-size:12px}
+#app[data-platform-route=exam] .ec-academic-facts{gap:8px;background:none;border:0;margin-bottom:22px}
+#app[data-platform-route=exam] .ec-academic-facts>div{padding:12px;display:block;background:#f6f3fa;border:0;border-radius:10px}
+#app[data-platform-route=exam] .ec-academic-facts strong{display:block;font-size:25px}
+#app[data-platform-route=exam] .ec-assessment-desk{grid-template-columns:minmax(0,1fr) 210px;gap:18px}
+#app[data-platform-route=exam] .ec-creation-rail{grid-column:1/-1;display:flex;align-items:center;flex-wrap:wrap;gap:10px;background:none;border:0;border-bottom:1px solid #eee8f2;padding:0 0 16px}
+#app[data-platform-route=exam] .ec-creation-rail>:is(small,h3,.ec-text-button){display:none}
+#app[data-platform-route=exam] .ec-creation-rail>button{width:auto;flex:1;padding:10px!important;border:1px solid #e7dfee;border-radius:8px;min-width:130px}
+#app[data-platform-route=exam] .ec-marking-ledger{background:#fbf8f3;border:1px solid #eee6d9;border-radius:12px;padding:16px}
+#app[data-platform-route=exam] .ec-paper-desk{display:flex;flex-wrap:wrap;gap:12px;align-content:start}
+#app[data-platform-route=exam] .ec-paper-desk>.ec-section-head,#app[data-platform-route=exam] .ec-schedule{width:100%}
+#app[data-platform-route=exam] .ec-desk-paper{flex:1 1 calc(50% - 12px);min-width:180px;display:block;padding:18px;border:1px solid #e4daed;border-top:4px solid #a18abb;border-radius:4px 12px 12px 12px;box-shadow:0 4px 12px #5a3b6b06;background:#fff}
+#app[data-platform-route=exam] .ec-desk-paper>i{display:block;font:12px monospace;color:#ae96ba;margin-bottom:16px}
+#app[data-platform-route=exam] .ec-desk-paper>span{display:inline-block;margin-top:12px}
+#app[data-platform-route=exam] [data-experience=list] .ec-desk-paper{flex-basis:100%;display:flex;gap:12px;align-items:center;border-top:1px solid #e4daed;border-radius:8px;padding:13px}
+/* FlowForm: operation rail + live queue. Underlined navigation replaces pills. */
+#app[data-platform-route=flowform] .ffp-nav.wui-segmented{background:transparent;border:0;border-bottom:1px solid #dddfe9;border-radius:0;padding:0;gap:16px}
+#app[data-platform-route=flowform] .ffp-nav.wui-segmented>button{border-radius:0!important;padding:12px 2px!important;background:transparent!important}
+#app[data-platform-route=flowform] .ffp-nav.wui-segmented>button.active{box-shadow:inset 0 -2px #7860ab;border-color:transparent!important}
+#app[data-platform-route=flowform] .ffp-command-home{display:grid;grid-template-columns:170px minmax(0,1fr);gap:18px;padding:0}
+#app[data-platform-route=flowform] .ffp-hero{grid-column:1/-1;padding:15px 18px;background:#eef1f8;border:0;border-left:3px solid #7e8daf;min-height:0}
+#app[data-platform-route=flowform] .ffp-hero h2{font-size:19px;margin:5px 0}#app[data-platform-route=flowform] .ffp-hero p{font-size:11px;margin:0}
+#app[data-platform-route=flowform] .ffp-stats{display:flex;flex-direction:column;gap:9px;margin:0;background:none;border:0}
+#app[data-platform-route=flowform] .ffp-stats>button{border:1px solid #e1e4ee;border-radius:10px;padding:15px;text-align:left;background:#fff;min-height:100px}
+#app[data-platform-route=flowform] .ffp-stats strong{font:600 30px/1.4 monospace;color:#4d5874;display:block}
+#app[data-platform-route=flowform] .ffp-dashboard-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(220px,.8fr);margin:0;gap:15px;align-items:start}
+#app[data-platform-route=flowform] .ffp-dashboard-grid>.ffp-panel{padding:17px;border-radius:12px}
+#app[data-platform-route=flowform] .ffp-dashboard-grid>.ffp-panel:last-child{background:#f7f8fc;border-color:#dfe3ef}
+#app[data-platform-route=flowform] .ffp-templates{grid-column:1/-1;margin-top:5px}
+#app[data-platform-route=flowform] [data-experience=inbox] .ffp-dashboard-grid{grid-template-columns:minmax(230px,1fr) minmax(0,1fr)}
+#app[data-platform-route=flowform] [data-experience=inbox] .ffp-flow-list{order:2}
+#app[data-platform-route=flowform] .ffp-hero .module-view-control{margin:9px 0 0}
+/* DocMorph: document queue first, dedicated intake station to its right. */
+#app[data-platform-route=docmorph] .dmp-nav.wui-segmented{position:static!important;background:#fff;border-radius:0;border:0;border-bottom:1px solid #e6dfd7;padding:0;gap:8px}
+#app[data-platform-route=docmorph] .dmp-nav.wui-segmented>button{border-radius:7px 7px 0 0!important;padding:10px 13px!important;font-size:11px}
+#app[data-platform-route=docmorph] .dmp-intake-grid{display:grid;grid-template-columns:minmax(0,1fr) 240px;gap:18px;align-items:start}
+#app[data-platform-route=docmorph] .dmp-intake-station{grid-column:2;grid-row:1;position:sticky;top:15px;padding:22px;border-radius:14px;background:#f6f1e9;border:1px solid #e8ddcc;display:flex;flex-direction:column;align-items:stretch;gap:15px}
+#app[data-platform-route=docmorph] .dmp-intake-station .dmp-paper-glyph{height:72px;width:58px;font-size:28px;margin:0;box-shadow:6px 6px 0 #e8dfd1}
+#app[data-platform-route=docmorph] .dmp-intake-station h2{font-size:21px;line-height:1.5;margin:8px 0;color:#5c4d43}
+#app[data-platform-route=docmorph] .dmp-intake-station p{font-size:11px;line-height:1.8;margin:0}
+#app[data-platform-route=docmorph] .dmp-intake-steps{display:grid;gap:12px;padding-top:15px}
+#app[data-platform-route=docmorph] .dmp-processing-column{grid-column:1;grid-row:1;min-width:0}
+#app[data-platform-route=docmorph] .dmp-stats{display:flex;gap:0;margin:0 0 15px;border-bottom:1px solid #e6e0d9;border-radius:0}
+#app[data-platform-route=docmorph] .dmp-stats article{flex:1;padding:10px;border:0;background:none;border-radius:0}
+#app[data-platform-route=docmorph] .dmp-stats article small{display:none}
+#app[data-platform-route=docmorph] .dmp-stats article strong{font-size:24px;margin:6px 0;color:#75604a}
+#app[data-platform-route=docmorph] .dmp-processing-column>.dmp-panel{padding:18px;border-radius:12px}
+#app[data-platform-route=docmorph] .dmp-section-head{flex-wrap:wrap;gap:12px}
+#app[data-platform-route=docmorph] .dmp-doc-table article{grid-template-columns:minmax(140px,1.4fr) .8fr .6fr .6fr auto;font-size:11px;gap:10px}
+#app[data-platform-route=docmorph] [data-experience=files] .dmp-doc-table{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+#app[data-platform-route=docmorph] [data-experience=files] .dmp-doc-table>.head{display:none}
+#app[data-platform-route=docmorph] [data-experience=files] .dmp-doc-table article{display:flex;flex-direction:column;align-items:stretch;padding:18px 14px 14px 45px;border:1px solid #e8e0d6;border-radius:10px;gap:12px}
+/* AdaptForm: branching canvas beside a prominent response device. */
+#app[data-platform-route=adaptform] .afp-nav.wui-segmented{width:max-content;max-width:100%;border-radius:25px;padding:4px;background:#ece8f5;border:0}
+#app[data-platform-route=adaptform] .afp-nav.wui-segmented>button{border-radius:22px!important;padding:9px 15px!important}
+#app[data-platform-route=adaptform] .afp-adaptive-home{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;padding:0;min-width:0}
+#app[data-platform-route=adaptform] .afp-hero{padding:0;min-height:0;gap:12px;margin:0}
+#app[data-platform-route=adaptform] .afp-hero h2{font-size:19px;margin:5px 0;color:#513e70}
+#app[data-platform-route=adaptform] .afp-hero p,#app[data-platform-route=adaptform] .afp-hero>div>span{display:none}
+#app[data-platform-route=adaptform] .afp-stats{display:flex;width:max-content;max-width:100%;gap:22px;margin:0;padding:9px 15px;border:0;border-radius:9px;background:#f0ecf7;flex-wrap:wrap}
+#app[data-platform-route=adaptform] .afp-stats article{padding:0;border:0;display:flex;gap:9px;align-items:center}
+#app[data-platform-route=adaptform] .afp-stats article>span{display:none}
+#app[data-platform-route=adaptform] .afp-home-workbench{display:grid;grid-template-columns:205px minmax(240px,1fr) minmax(270px,1.1fr);gap:16px;align-items:start}
+#app[data-platform-route=adaptform] .afp-home-directory{border:0;background:transparent;padding:0}
+#app[data-platform-route=adaptform] .afp-projects article{padding:14px 10px;background:#fff;border:1px solid #e7def0;border-radius:10px;margin-bottom:10px;display:flex;flex-wrap:wrap;gap:8px}
+#app[data-platform-route=adaptform] .afp-home-logic{background-color:#f8f5fc;background-image:radial-gradient(#cabedc 1px,transparent 1px);background-size:16px 16px;padding:18px;border:1px solid #e2d8ec;min-height:450px}
+#app[data-platform-route=adaptform] .afp-home-logic>.module-view-control{margin:0 0 16px;background:#e9e1f4}
+#app[data-platform-route=adaptform] .afp-home-preview{border-radius:22px;border:6px solid #e7dff1;box-shadow:0 10px 25px #5131730b;padding:22px;background:#fff;min-width:0}
+#app[data-platform-route=adaptform] [data-experience=response] .afp-home-workbench{grid-template-columns:205px minmax(300px,1.5fr) minmax(220px,.8fr)}
+#app[data-platform-route=adaptform] [data-experience=response] .afp-home-preview{grid-column:2;grid-row:1}
+#app[data-platform-route=adaptform] [data-experience=response] .afp-home-logic{grid-column:3;grid-row:1}
+/* TableMind: explorer and spreadsheet share one frame, with a compact utility header. */
+#app[data-platform-route=tablemind] .tmp-nav.wui-segmented{background:#fff;border:1px solid #e1e3eb;border-radius:9px;padding:3px;gap:1px}
+#app[data-platform-route=tablemind] .tmp-nav.wui-segmented>button{border:0!important;border-right:1px solid #eeeaf3!important;border-radius:5px!important;padding:9px 13px!important;font-size:11px}
+#app[data-platform-route=tablemind] .tmp-data-home{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:15px;padding:0}
+#app[data-platform-route=tablemind] .tmp-data-masthead{grid-column:1;grid-row:1;margin:0;padding:0;min-height:0;align-self:center}
+#app[data-platform-route=tablemind] .tmp-data-masthead h2{font-size:18px;margin:0;color:#364355}
+#app[data-platform-route=tablemind] .tmp-data-masthead :is(p,small),#app[data-platform-route=tablemind] .tmp-data-masthead>div:last-child{display:none}
+#app[data-platform-route=tablemind] .tmp-data-facts{grid-column:2;grid-row:1;margin:0;gap:14px;padding:7px 10px;background:none;border:0;font-size:11px;min-height:0}
+#app[data-platform-route=tablemind] .tmp-data-facts b{font-size:19px}
+#app[data-platform-route=tablemind] .tmp-data-facts>span:last-child{display:none}
+#app[data-platform-route=tablemind] .tmp-data-split{grid-column:1/-1;margin:0;display:grid;grid-template-columns:220px minmax(0,1fr);gap:0;border:1px solid #dfe3ed;border-radius:12px;overflow:hidden}
+#app[data-platform-route=tablemind] .tmp-home-directory{padding:18px 14px;background:#f3f5fa;border:0;border-right:1px solid #e1e5ed;border-radius:0}
+#app[data-platform-route=tablemind] .tmp-home-sheet{border:0;border-radius:0;min-width:0}
+#app[data-platform-route=tablemind] .tmp-home-sheet>header{padding:18px;flex-wrap:wrap;gap:12px}
+#app[data-platform-route=tablemind] .tmp-sheet-scroll{min-height:320px;max-height:55vh;overflow:auto}
+#app[data-platform-route=tablemind] .tmp-home-bottom{grid-column:1/-1;margin-top:0}
+#app[data-platform-route=tablemind] [data-experience=sheet] .tmp-data-split{grid-template-columns:minmax(0,1fr)}
+#app[data-platform-route=tablemind] [data-experience=sheet] .tmp-home-directory{display:none}
+/* LabForm: instrument display + metrics rail; notebook sits directly below. */
+#app[data-platform-route=labform] .lfp-nav.wui-segmented{background:none;border:0;border-bottom:1px solid #dce3e8;border-radius:0;padding:0;gap:4px}
+#app[data-platform-route=labform] .lfp-nav.wui-segmented>button{border-radius:6px 6px 0 0!important;padding:10px 13px!important;color:#627887}
+#app[data-platform-route=labform] .lfp-research-home{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:18px;padding:0}
+#app[data-platform-route=labform] .lfp-research-masthead{grid-column:1/-1;padding:0;margin:0;border-bottom:0;min-height:0}
+#app[data-platform-route=labform] .lfp-research-masthead h2{font-size:19px;margin:0;color:#364f5e}
+#app[data-platform-route=labform] .lfp-research-masthead :is(span,p){display:none}
+#app[data-platform-route=labform] .lfp-research-grid{grid-column:1;grid-row:2;margin:0;grid-template-columns:minmax(0,1fr);gap:14px}
+#app[data-platform-route=labform] .lfp-science-preview{border:1px solid #d7e2e9;border-top:3px solid #8eaaba;border-radius:9px;padding:20px}
+#app[data-platform-route=labform] .lfp-instrument-strip{grid-column:2;grid-row:2;display:flex;flex-direction:column;margin:0;align-self:start;border:1px solid #d9e3e9;background:#f1f6f8;border-radius:10px;padding:10px}
+#app[data-platform-route=labform] .lfp-instrument-strip article{padding:14px;border:0;border-bottom:1px solid #dae4eb;display:flex;justify-content:space-between;align-items:center;gap:8px}
+#app[data-platform-route=labform] .lfp-research-ledger{min-width:0;padding:18px;background:#faf8f2;border:1px solid #e7e0d0;border-left:4px solid #d2c8ac;border-radius:4px}
+#app[data-platform-route=labform] .lfp-research-ledger dl{display:grid;grid-template-columns:90px 1fr;gap:9px}
+#app[data-platform-route=labform] .lfp-research-ledger dd{margin:0}
+#app[data-platform-route=labform] .lfp-notebook-projects{grid-column:1/-1;margin:0;border-top:1px solid #dce5e9;padding-top:16px}
+#app[data-platform-route=labform] .lfp-home-bottom{grid-column:1/-1;margin-top:0}
+#app[data-platform-route=labform] [data-experience=notebook] .lfp-notebook-projects{grid-row:2;grid-column:1}
+#app[data-platform-route=labform] [data-experience=notebook] .lfp-research-grid{grid-row:3;grid-column:1/-1}
+/* Readable hierarchy throughout the redesigned homes. */
+#app :is(.ec-assessment-home,.ffp-command-home,.dmp-document-inbox,.afp-adaptive-home,.tmp-data-home,.lfp-research-home) :is(h2,h3,strong){color:#3c3448}
+#app :is(.ec-assessment-home,.ffp-command-home,.dmp-document-inbox,.afp-adaptive-home,.tmp-data-home,.lfp-research-home) :is(p,small){color:#746a80}
+@media(max-width:1300px){
+ #app[data-platform-route=exam] .ec-shell{grid-template-columns:125px minmax(0,1fr)}
+ #app[data-platform-route=exam] .ec-assessment-desk{grid-template-columns:minmax(0,1fr)}
+ #app[data-platform-route=flowform] .ffp-dashboard-grid{grid-template-columns:minmax(0,1fr)!important}
+ #app[data-platform-route=adaptform] .afp-home-workbench,#app[data-platform-route=adaptform] [data-experience=response] .afp-home-workbench{grid-template-columns:180px minmax(0,1fr)!important}
+ #app[data-platform-route=adaptform] .afp-home-preview{grid-column:2;grid-row:1/3}
+ #app[data-platform-route=adaptform] .afp-home-logic,#app[data-platform-route=adaptform] [data-experience=response] .afp-home-logic{grid-column:1;grid-row:2;padding:12px}
+ #app[data-platform-route=adaptform] .afp-home-directory{grid-column:1;grid-row:1}
+ #app[data-platform-route=labform] .lfp-research-home{grid-template-columns:minmax(0,1fr) 170px}
+}
+@media(max-width:1000px){
+ #app:is([data-platform-route=exam],[data-platform-route=flowform],[data-platform-route=docmorph],[data-platform-route=adaptform],[data-platform-route=tablemind],[data-platform-route=labform]) .sidebar .nav-item{font-size:0;justify-content:center;gap:0}
+ #app:is([data-platform-route=exam],[data-platform-route=flowform],[data-platform-route=docmorph],[data-platform-route=adaptform],[data-platform-route=tablemind],[data-platform-route=labform]) .sidebar .nav-icon{font-size:19px}
+ #app[data-platform-route=docmorph] .dmp-intake-grid{grid-template-columns:minmax(0,1fr)}
+ #app[data-platform-route=docmorph] .dmp-intake-station{grid-column:1;grid-row:2;position:static;display:grid;grid-template-columns:1fr 1fr}
+ #app[data-platform-route=docmorph] .dmp-intake-station .dmp-paper-glyph{display:none}
+ #app[data-platform-route=tablemind] .tmp-data-home{grid-template-columns:minmax(0,1fr)}
+ #app[data-platform-route=tablemind] .tmp-data-facts{grid-column:1;grid-row:2;justify-content:flex-start}
+ #app[data-platform-route=tablemind] .tmp-data-split{grid-template-columns:180px minmax(0,1fr)}
+}
+@media(max-width:750px){
+ #app:is([data-platform-route=exam],[data-platform-route=flowform],[data-platform-route=docmorph],[data-platform-route=adaptform],[data-platform-route=tablemind],[data-platform-route=labform]) .main-shell>main{padding:16px 12px}
+ #app :is(.ec-heading,.ffp-head,.dmp-head,.afp-header,.tmp-header,.lfp-header){flex-wrap:wrap}
+ #app :is(.ec-heading,.ffp-head,.dmp-head,.afp-header,.tmp-header,.lfp-header)>div:last-child{flex-wrap:wrap}
+ #app[data-platform-route=exam] .ec-shell{display:block}
+ #app[data-platform-route=exam] .ec-nav.wui-segmented{flex-direction:row!important;overflow-x:auto;border-bottom:1px solid #e9e3f0}
+ #app[data-platform-route=exam] .ec-content{padding:14px}
+ #app[data-platform-route=exam] .ec-academic-facts{grid-template-columns:repeat(2,1fr)}
+ #app[data-platform-route=flowform] .ffp-command-home{grid-template-columns:minmax(0,1fr)}
+ #app[data-platform-route=flowform] .ffp-stats{display:grid;grid-template-columns:repeat(2,1fr)}
+ #app[data-platform-route=flowform] .ffp-hero{flex-wrap:wrap;gap:14px}
+ #app[data-platform-route=docmorph] .dmp-doc-table{overflow:auto}
+ #app[data-platform-route=docmorph] .dmp-doc-table article{min-width:570px}
+ #app[data-platform-route=docmorph] [data-experience=files] .dmp-doc-table article{min-width:0}
+ #app[data-platform-route=docmorph] .dmp-intake-station{display:flex}
+ #app[data-platform-route=adaptform] .afp-home-workbench,#app[data-platform-route=adaptform] [data-experience=response] .afp-home-workbench{display:flex;flex-direction:column}
+ #app[data-platform-route=adaptform] .afp-hero{min-width:0;max-width:100%;flex-wrap:wrap}
+ #app[data-platform-route=adaptform] .afp-hero>div{min-width:0;max-width:100%}
+ #app[data-platform-route=adaptform] .afp-hero>div:last-child{display:flex;flex-wrap:wrap;gap:7px}
+ #app[data-platform-route=adaptform] .afp-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%;box-sizing:border-box;gap:10px}
+ #app[data-platform-route=adaptform] .afp-home-workbench{min-width:0}
+ #app[data-platform-route=adaptform] .afp-home-workbench>section{width:100%;box-sizing:border-box}
+ #app[data-platform-route=adaptform] .afp-home-preview{order:1;max-width:100%}
+ #app[data-platform-route=tablemind] .tmp-data-split{grid-template-columns:minmax(0,1fr)}
+ #app[data-platform-route=labform] .lfp-research-home{display:flex;flex-direction:column}
+ #app[data-platform-route=labform] .lfp-instrument-strip{display:grid;grid-template-columns:repeat(2,1fr);width:100%;box-sizing:border-box}
+ #app[data-platform-route=labform] .lfp-research-grid{width:100%}
+ #app[data-platform-route=labform] [data-experience=notebook] .lfp-notebook-projects{order:-1}
+ #app .wui-inline-tools{display:none}
+}
+
+/* Shared navigation selection matches the main workspace sidebar. */
+#app:not(.landing-mode) :is(.fp3-spaces,.wui-segmented,.fc-nav,.fp3-view-tabs,.fp3-entity-tabs,.tmp-view-tabs,.cp-tabs){position:relative!important;isolation:isolate}
+#app:not(.landing-mode) :is(.fp3-spaces,.wui-segmented,.fc-nav,.fp3-view-tabs,.fp3-entity-tabs,.tmp-view-tabs,.cp-tabs)>button{position:relative;border-radius:12px!important;border-color:transparent!important}
+#app:not(.landing-mode) :is(.fp3-spaces,.wui-segmented,.fc-nav,.fp3-view-tabs,.fp3-entity-tabs,.tmp-view-tabs,.cp-tabs)>button.active{background:#eee9ff!important;color:#7657df!important;border-color:transparent!important;box-shadow:var(--workspace-selection-line,inset 0 -3px #8064d8)!important}
+#app:not(.landing-mode) .workspace-highlight-travel>button.active{background:transparent!important;box-shadow:none!important}
+#app:not(.landing-mode) .workspace-moving-highlight{background:#eee9ff;border:0;border-radius:12px;box-shadow:var(--workspace-selection-line,inset 0 -3px #8064d8);transform-origin:0 0;z-index:-1;box-sizing:border-box}
+@media(hover:hover) and (pointer:fine){
+ #app:not(.landing-mode) :is(.fp3-spaces,.wui-segmented,.fc-nav,.fp3-view-tabs,.fp3-entity-tabs,.tmp-view-tabs,.cp-tabs)>button:not(.active):hover{background:#f6f3ff!important;color:#7657df!important}
+}
+
+/* Direction follows the rendered layout, including responsive navigation rails. */
+#app:not(.landing-mode) [data-workspace-axis=vertical]{--workspace-selection-line:inset 4px 0 #8064d8}
+#app:not(.landing-mode) [data-workspace-axis=horizontal]{--workspace-selection-line:inset 0 -3px #8064d8}
+#app:not(.landing-mode) :is(.fp3-spaces,.wui-segmented,.fc-nav,.fp3-view-tabs,.fp3-entity-tabs,.tmp-view-tabs,.cp-tabs)>button{transition:color 120ms var(--workspace-ease-out)}

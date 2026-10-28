@@ -1,0 +1,2 @@
+// Apply the stored appearance before first paint, including loading iframes.
+(()=>{const apply=value=>{const theme=value==='dark'?'dark':'light';document.documentElement.dataset.theme=theme;document.documentElement.style.colorScheme=theme;};try{apply(localStorage.getItem('omniformos.theme'));}catch{apply('light');}if(typeof window!=='undefined')window.addEventListener('storage',event=>{if(event.key==='omniformos.theme')apply(event.newValue);});})();

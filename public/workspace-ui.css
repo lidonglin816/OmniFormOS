@@ -1,0 +1,107 @@
+/* Internal workspaces only. The approved landing page is deliberately excluded. */
+.wui-search-trigger{display:flex;align-items:center;gap:9px;border:1px solid #e6e0ed;background:#fff;color:#8a7b99;border-radius:9px;padding:7px 10px;font-size:12px;white-space:nowrap}
+.wui-search-trigger kbd,.wui-command kbd{font:10px "Cascadia Code",monospace;border:1px solid #e6dfed;border-radius:4px;padding:2px 4px;background:#faf8fc;color:#9b8ca8}
+.wui-context{display:flex;align-items:center;justify-content:space-between;gap:18px;margin:16px 0 23px;padding:11px 14px;background:#ffffffb5;border:1px solid #e8e2ed;border-radius:11px;color:#857493;min-width:0}
+.wui-context>div{display:flex;align-items:center;gap:9px;min-width:0}.wui-context>div>i{font-size:20px;font-style:normal;display:grid;place-items:center;width:34px;height:34px;flex-shrink:0;border:1px solid #e6dcf1;background:#f4eff9;color:#9677b5;border-radius:9px}
+.wui-context strong{font-size:12px;font-weight:600;color:#6d5b7b;display:block}.wui-context small{font-size:10px;margin-top:4px;display:block;color:#a08eac}
+.wui-context button{font-size:11px;white-space:nowrap;padding:7px 9px;border-radius:7px;border:1px solid transparent;min-height:32px;color:#947da5;background:transparent}
+.wui-context button:hover{background:#f2ecf8;color:#806096}.wui-context button[aria-pressed=true]{background:#eee5f5;border-color:#d8c8e5;color:#806096}
+.wui-command,.wui-options{color:#64546f;background:#fff;border:1px solid #e0d6e9;box-shadow:0 28px 90px #291a3f26;border-radius:17px;padding:0;max-width:calc(100vw - 32px)}
+.wui-command::backdrop,.wui-options::backdrop{background:#2a203847;backdrop-filter:blur(5px)}
+.wui-command{width:600px;margin:12vh auto auto;overflow:hidden;max-height:75dvh}
+.wui-command header{display:flex;gap:16px;align-items:center;padding:22px 24px 18px;border-bottom:1px solid #f0eaf4}
+.wui-command header>span{font-size:30px;color:#aa91bf}.wui-command header>div{flex:1;min-width:0}.wui-command header h2{font-size:10px;margin:0 0 7px;color:#a38caf;font-weight:500;letter-spacing:1px}
+.wui-command input{width:100%;padding:0;border:0;border-radius:0;outline:none;font-size:16px;color:#655171;background:transparent;min-height:30px}
+.wui-command input:focus{outline:none;border:0}.wui-command input::placeholder{color:#b4a2bf}.wui-command header>button{align-self:flex-start;font-size:10px;color:#ac98b9;border:1px solid #eae1f0;padding:4px 6px;border-radius:5px;background:#faf8fc}
+.wui-command [role=listbox]{max-height:48dvh;overflow:auto;padding:9px;scroll-padding:9px}
+.wui-command [role=option]{width:100%;display:flex;align-items:center;text-align:left;gap:13px;padding:11px 14px;border:1px solid transparent;background:transparent;border-radius:9px;color:#8d739e;margin:2px 0}
+.wui-command [role=option] b{font-size:13px;font-weight:500;color:#6d547d}.wui-command [role=option] small{display:block;font-size:10px;color:#ad97b9;margin-top:4px}.wui-command [role=option] kbd{margin-left:auto}
+.wui-command [role=option]:hover,.wui-command [role=option][aria-selected=true]{background:#f2ebf9;border-color:#e8dcf2}.wui-command-symbol{height:31px;width:31px;border-radius:8px;display:grid;place-items:center;background:#fff;border:1px solid #ece1f4;color:#a58bb9;flex-shrink:0}
+.wui-command footer{display:flex;justify-content:space-between;gap:12px;padding:13px 20px;margin:0;border-top:1px solid #eee7f4;font-size:9px;color:#ad99b9;min-height:0;background:#fcfafe}
+.wui-no-results{text-align:center;font-size:13px;color:#a68cb5;padding:45px 20px}
+.wui-options{width:440px;padding:25px}.wui-options header{display:flex;justify-content:space-between;align-items:center}.wui-options header small{font:8px monospace;letter-spacing:2px;color:#b59cc2}.wui-options h2{font-size:21px;letter-spacing:-.5px;margin:8px 0;color:#70577e}.wui-options header>button{font-size:24px;color:#b5a0c2;background:#f8f4fc;border:1px solid #eae0f0;border-radius:7px;width:30px;height:30px}.wui-options>p{font-size:11px;color:#a38baf;line-height:1.8}
+.wui-options section{padding:18px 0;border-bottom:1px solid #f1eaf5}.wui-options h3{font-size:12px;color:#9678a6;font-weight:500;margin:0 0 12px}.wui-options section>p{font-size:12px;color:#ab94b8;line-height:1.8}
+.wui-density{display:grid;grid-template-columns:1fr 1fr;gap:12px}.wui-density button{border:1px solid #e9deef;background:white;border-radius:10px;padding:17px;font-size:12px;display:grid;gap:10px;color:#a387b5}.wui-density button i{font-size:26px;font-style:normal;color:#b39ac5}.wui-density button[aria-pressed=true]{border-color:#b79ad0;background:#f4edf9;color:#9070a4;box-shadow:0 0 0 2px #d9c7e933}
+.wui-options label{display:flex;justify-content:space-between;align-items:center;padding:12px 0;font-size:12px;color:#9378a3}.wui-options input{width:16px;height:16px;accent-color:#a180bd}.wui-options footer{padding:20px 0 0;margin:0;display:flex;justify-content:flex-end;min-height:0}
+.wui-foldable{position:relative}.wui-panel-toggle{position:absolute;right:8px;top:8px;z-index:3;border:1px solid #dfd2e9!important;border-radius:7px!important;background:#fff!important;color:#a58bb9!important;padding:0!important;width:24px!important;height:26px!important;font-size:20px!important;line-height:1!important;display:grid!important;place-items:center!important;box-shadow:0 3px 7px #68448007}
+.wui-panel-folded{width:44px!important;min-width:44px!important;max-width:44px!important;padding:8px!important;overflow:hidden!important;min-height:150px!important}
+.wui-panel-folded>:not(.wui-panel-toggle){display:none!important}
+.fp-studio-three.wui-parent-folded{grid-template-columns:270px minmax(0,1fr) 44px!important}
+.afp-designer.wui-parent-folded{grid-template-columns:180px minmax(0,1fr) 44px!important}
+.afp-home-workbench.wui-parent-folded{grid-template-columns:230px minmax(0,1fr) 44px!important}
+.dm-workspace.wui-parent-folded{grid-template-columns:44px minmax(0,1fr)!important}.dm-workspace.wui-parent-folded>.dm-form-pane{width:auto!important}
+.lfp-research-grid.wui-parent-folded,.lfp-plot-layout.wui-parent-folded{grid-template-columns:minmax(0,1fr) 44px!important}
+.tmp-studio.wui-parent-folded{grid-template-columns:44px minmax(0,1fr)!important}
+body.wui-focus-mode{overflow:hidden}body.wui-focus-mode #app>.sidebar,body.wui-focus-mode .main-shell>.topbar,body.wui-focus-mode .main-shell>footer{display:none}
+body.wui-focus-mode .main-shell{margin-left:0;height:100dvh}body.wui-focus-mode .main-shell>main{max-width:none;height:100dvh;min-height:0;overflow:auto;padding:20px 28px}
+body.wui-focus-mode .wui-context{position:sticky;top:0;z-index:15;background:#fbf9fdf5;backdrop-filter:blur(10px);box-shadow:0 6px 12px #6d4b8d05}
+/* FormPilot: a conversation workspace with tactile, selectable entities. */
+#app[data-platform-route=pilot] .fp-conversation{background:#faf7fd;border-color:#e4d9ee;border-radius:12px;overflow:hidden}
+#app[data-platform-route=pilot] .fp-user-message{border-radius:13px 13px 3px 13px;background:#eae0f4;color:#8c6e9f;line-height:1.8}
+#app[data-platform-route=pilot] .fp-assistant-message{border-radius:13px 13px 13px 3px;background:#fff;border:1px solid #ece2f4}
+#app[data-platform-route=pilot] .fp-entity-tabs{gap:6px;padding:6px;background:#f5f0f9;border-radius:10px}
+#app[data-platform-route=pilot] .fp-entity-tabs button{border-radius:7px}#app[data-platform-route=pilot] .fp-entity-tabs button.active{background:#fff;box-shadow:0 2px 8px #6d4b8d0c}
+#app[data-platform-route=pilot] .fp-project-card:focus-within{outline:2px solid #c9b4df;outline-offset:3px}
+/* ExamCraft: calm proofreading panes with a clear selected-question rail. */
+#app[data-platform-route=exam] .ec-question-list{scroll-padding:18px;border-radius:12px;background:#f9f6fc}
+#app[data-platform-route=exam] .ec-question-list button.active{box-shadow:inset 3px 0 #a684bf;background:#f0e7f7}
+#app[data-platform-route=exam] .ec-preview-pane{background:#f5f0f9;border-left:1px solid #e9dfee}
+#app[data-platform-route=exam] .ec-preview-card{border:1px solid #e9e1ec;box-shadow:0 8px 25px #62497907;border-radius:12px}
+#app[data-platform-route=exam] .ec-option-editor:focus-within{background:#fbf8fd;border-radius:8px;box-shadow:0 0 0 2px #d4bfdf66}
+/* FlowForm: visible canvas controls, clear node selection and branch paths. */
+#app[data-platform-route=flowform] .ffp-canvas-tools{background:#ffffffeb;border:1px solid #e6dcee;border-radius:12px;box-shadow:0 6px 22px #694c8410;backdrop-filter:blur(8px)}
+#app[data-platform-route=flowform] .ffp-inspector{border-left:1px solid #e4d9ed;background:#fdfbff}
+#app[data-platform-route=flowform] .react-flow__node.selected{filter:drop-shadow(0 0 4px #b99bd744)}
+#app[data-platform-route=flowform] .react-flow__edge.selected .react-flow__edge-path{stroke:#a685c2;stroke-width:3}
+#app[data-platform-route=flowform] .ffp-flow-list article:hover{background:#fbf8fd;border-radius:9px}
+/* DocMorph: source evidence and generated fields behave as a review desk. */
+#app[data-platform-route=docmorph] .dm-source-pane{background:#f8f5ef;border-color:#e4d9ca}
+#app[data-platform-route=docmorph] .dm-generated-field{border-radius:10px;transition:border-color 140ms ease,background 140ms ease}
+#app[data-platform-route=docmorph] .dm-generated-field.selected{border-color:#b895d0;background:#f6effb;box-shadow:inset 3px 0 #b895d0}
+#app[data-platform-route=docmorph] .dm-source-lines button.active{background:#eee4f7;border-color:#cdb4e0;box-shadow:inset 3px 0 #b08bc9}
+#app[data-platform-route=docmorph] .dmp-doc-table article:hover{background:#f9f6fc}
+/* AdaptForm: the selected field, rule and live response share a clear accent. */
+#app[data-platform-route=adaptform] [data-afp-drag]{transition:background 140ms ease,border-color 140ms ease}
+#app[data-platform-route=adaptform] .afp-step>header{border-radius:9px;background:#f3edf8;border:1px solid #e9deef}
+#app[data-platform-route=adaptform] .afp-logic-node:hover{border-color:#b99acf;background:#f4eaf9}
+#app[data-platform-route=adaptform] .afp-live{border:1px solid #e6d9ee;border-radius:12px;background:#fffdfd}
+#app[data-platform-route=adaptform] .afp-library button:hover{background:#f1e8f8;border-color:#c6add9}
+/* TableMind: spreadsheet focus, segmented views and a soft side peek. */
+#app[data-platform-route=tablemind] .tmp-view-tabs{display:flex;gap:4px;background:#f8f5fb;padding:7px;border-bottom:1px solid #e7dfee}
+#app[data-platform-route=tablemind] .tmp-view-tabs button{border-radius:7px;font-size:11px;padding:8px 11px;border-bottom:0}
+#app[data-platform-route=tablemind] .tmp-view-tabs button.active{background:#fff;border:1px solid #e2d4ed;box-shadow:0 2px 5px #79528c09;color:#9876ae}
+#app[data-platform-route=tablemind] .tmp-grid td:focus-within{background:#f4ecfa;box-shadow:inset 0 0 0 2px #c0a2d2}
+#app[data-platform-route=tablemind] .tmp-grid tbody tr:hover{background:#fcfaff}
+#app[data-platform-route=tablemind] .tmp-drawer{border-radius:17px 0 0 17px;border-left:1px solid #ddcbe8;box-shadow:-14px 0 45px #4a315a15}
+#app[data-platform-route=tablemind] .tmp-drawer-backdrop{background:#41304e25;backdrop-filter:blur(2px)}
+#app[data-platform-route=tablemind] .tmp-kanban article{border-radius:10px;box-shadow:0 2px 6px #65457a06}
+/* LabForm: notebook surfaces, focused measurements and instrument-like controls. */
+#app[data-platform-route=labform] .lfp-table-panel{border-radius:12px;border:1px solid #e4dceb}
+#app[data-platform-route=labform] .lfp-table-scroll td:focus-within{background:#f4eef9;box-shadow:inset 0 0 0 2px #c7b1d8}
+#app[data-platform-route=labform] .lfp-plot-config{background:#faf7fd;border-color:#e3d8ed;border-radius:12px}
+#app[data-platform-route=labform] .lfp-paper{border-radius:3px;box-shadow:0 10px 35px #66547713;border:1px solid #eee6f2}
+#app[data-platform-route=labform] .lfp-fit-strip{border-radius:10px;background:#f3edf8}
+/* AppCanvas keeps its existing viewport, selection and drag model. */
+#app[data-platform-route=appcanvas] .cp-tabs{background:#f6f0fa;padding:4px;gap:4px;border-radius:9px}
+#app[data-platform-route=appcanvas] .cp-tabs button{border-radius:6px}#app[data-platform-route=appcanvas] .cp-tabs button.active{background:#fff;box-shadow:0 1px 4px #72518a12}
+#app[data-platform-route=appcanvas] .cp-toolbar{box-shadow:0 3px 12px #6f49880a;border-bottom-color:#e5d8ef}
+#app[data-platform-route=appcanvas] .cp-left,#app[data-platform-route=appcanvas] .cp-right{background:#fcfaff}
+#app[data-platform-route=appcanvas] .cp-projects article:focus-within{outline:2px solid #cfb7df;outline-offset:3px}
+#app:not(.landing-mode) .wui-segmented{display:flex;gap:4px;padding:6px;border:1px solid #e9deef;border-radius:11px;background:#f5f0f9;overflow-x:auto;scrollbar-width:thin}
+#app:not(.landing-mode) .wui-segmented>button{border:1px solid transparent!important;border-radius:7px!important;white-space:nowrap;padding:9px 13px;color:#a68ab8;font-size:11px;flex-shrink:0}
+#app:not(.landing-mode) .wui-segmented>button.active{color:#8f6aa7;background:#fff;border-color:#e3d5ed!important;box-shadow:0 2px 6px #61407908}
+#app:not(.landing-mode) .wui-segmented>button:hover{background:#ffffff95}
+#app:not(.landing-mode) .wui-dragging{opacity:.48;outline:2px dashed #c6a7da;outline-offset:3px}
+#app:not(.landing-mode) .wui-drop-hint{outline:2px dashed #b99ace;outline-offset:4px;background:#f3e9fa!important}
+body.wui-density-compact #app:not(.landing-mode) :is(.tmp-grid,.lfp-root table) :is(td,th){padding-top:6px;padding-bottom:6px}
+body.wui-density-compact #app:not(.landing-mode) :is(.ffp-flow-list article,.dmp-doc-table article,.afp-projects article){padding-top:9px;padding-bottom:9px}
+body.wui-density-compact #app:not(.landing-mode) .wui-context{padding-top:6px;padding-bottom:6px;margin-bottom:14px}
+@media(max-width:1200px){.wui-context small{display:none}.wui-search-trigger>span{display:none}.wui-context{gap:8px}.wui-context button{padding:7px}}
+@media(max-width:800px){.wui-context{flex-wrap:wrap;padding:10px;margin-top:12px}.wui-context>div:last-child{margin-left:auto;flex-wrap:wrap}.wui-context strong{font-size:11px}.wui-context>div>i{display:none}.wui-search-trigger{font-size:14px;padding:6px}.wui-search-trigger kbd{display:none}.wui-context button{font-size:10px;padding:6px;min-height:32px}.afp-home-workbench.wui-parent-folded{grid-template-columns:minmax(0,1fr) 44px!important}.afp-home-workbench.wui-parent-folded .afp-home-directory{grid-column:1/-1}.fp-studio-three.wui-parent-folded,.afp-designer.wui-parent-folded{grid-template-columns:minmax(0,1fr) 44px!important}.fp-studio-three.wui-parent-folded>.fp-conversation,.afp-designer.wui-parent-folded>.afp-library{grid-column:1/-1}body.wui-focus-mode .main-shell>main{padding:14px}.wui-command footer>span:last-child{display:none}}
+@media(max-width:500px){.wui-context>div:first-child{display:none}.wui-context>div:last-child{margin:0;width:100%;justify-content:space-between}.wui-command header{padding:17px 15px;gap:10px}.wui-command header>span{display:none}.wui-command input{font-size:16px}.wui-options{padding:20px}.wui-search-trigger{margin-right:-10px}}
+@media(max-width:600px){.wui-panel-folded{width:auto!important;max-width:none!important;min-height:44px!important}.tmp-studio.wui-parent-folded,.dm-workspace.wui-parent-folded,.lfp-research-grid.wui-parent-folded,.lfp-plot-layout.wui-parent-folded{grid-template-columns:minmax(0,1fr)!important}.afp-home-workbench.wui-parent-folded{display:block}.wui-command footer{font-size:11px}.wui-context button{min-height:36px}}
+@media(prefers-reduced-motion:no-preference){#app[data-platform-route=tablemind] .tmp-drawer{animation:wui-peek 180ms cubic-bezier(.22,1,.36,1)}}
+@keyframes wui-peek{from{opacity:.5;transform:translateX(18px)}to{opacity:1;transform:none}}
+@media print{.wui-context,.wui-search-trigger,.wui-panel-toggle{display:none!important}}
+
+.workspace-data-link{color:#805dc3;font-size:12px;white-space:nowrap;text-decoration:none;padding:8px 10px;border:1px solid #e5dbf0;border-radius:8px;background:#faf7ff}.workspace-data-link:hover{background:#eee7fb}

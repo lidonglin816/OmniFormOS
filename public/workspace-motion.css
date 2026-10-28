@@ -1,0 +1,34 @@
+/* Every selector excludes the approved homepage. No permanent motion on data. */
+#app:not(.landing-mode){--workspace-ease-out:cubic-bezier(.23,1,.32,1)}
+#app:not(.landing-mode) .workspace-motion-nav{position:relative;isolation:isolate}
+#app:not(.landing-mode) .workspace-moving-highlight{position:absolute;pointer-events:none;border:1px solid #bfa1d766;border-radius:8px;box-shadow:0 2px 8px #a17bbc15;z-index:1}
+@media(prefers-reduced-motion:no-preference){
+  html.workspace-sharing::view-transition-old(root),html.workspace-sharing::view-transition-new(root){animation:none}
+  html.workspace-sharing::view-transition-group(workspace-project-title){animation-duration:240ms;animation-timing-function:cubic-bezier(.23,1,.32,1)}
+}
+@media(prefers-reduced-motion:reduce){html.workspace-sharing::view-transition-group(*){animation-duration:.01ms!important}}
+#app:not(.landing-mode) button{transition:background-color 120ms ease-out,border-color 120ms ease-out,box-shadow 120ms ease-out,color 120ms ease-out}
+#app:not(.landing-mode) button[data-motion-pressed]{background-image:linear-gradient(#7657ef12,#7657ef12);box-shadow:inset 0 1px 4px #51317426}
+#app:not(.landing-mode) button:focus-visible{outline:2px solid #9874c2;outline-offset:3px}
+#app:not(.landing-mode) :is(input,textarea,select):focus-visible{outline:2px solid #b69acf;outline-offset:2px}
+@media(hover:hover) and (pointer:fine){
+  #app:not(.landing-mode) :is(.fp-project-card,.cp-projects article,.afp-projects article,.lfp-projects article){transition:box-shadow 160ms var(--workspace-ease-out),border-color 160ms ease-out}
+  #app:not(.landing-mode) :is(.fp-project-card,.cp-projects article,.afp-projects article,.lfp-projects article):hover{border-color:#cbb6df;box-shadow:0 7px 20px #68438a0d}
+  #app[data-platform-route=flowform] .react-flow__node:hover{filter:drop-shadow(0 3px 5px #9575bd22)}
+  #app[data-platform-route=docmorph] .dm-source-lines button:hover{box-shadow:inset 3px 0 #c1a5d7}
+  #app[data-platform-route=appcanvas] .cp-library button:hover{box-shadow:0 2px 8px #8761a719}
+}
+@media(prefers-reduced-motion:no-preference){
+  @starting-style{
+    #app[data-motion-input=pointer][data-platform-route=tablemind] .tmp-drawer{opacity:0;translate:24px 0}
+    #app[data-motion-input=pointer][data-platform-route=flowform] .ffp-inspector{opacity:0}
+  }
+  #app[data-platform-route=tablemind] .tmp-drawer{animation:none;transition:translate 240ms cubic-bezier(.32,.72,0,1),opacity 200ms ease-out}
+  #app[data-platform-route=flowform] .ffp-inspector{transition:opacity 160ms ease-out}
+  #app[data-motion-input=keyboard] :is(.tmp-drawer,.ffp-inspector){transition:none}
+  #app:not(.landing-mode) :is(.afp-logic-node,.dm-generated-field,.cp-component){transition:border-color 140ms ease-out,box-shadow 140ms ease-out,background-color 140ms ease-out}
+}
+@media(prefers-reduced-motion:reduce){
+  #app:not(.landing-mode) *,#app:not(.landing-mode) *::before,#app:not(.landing-mode) *::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+
