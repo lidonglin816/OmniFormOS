@@ -11,7 +11,8 @@
     "build": "node scripts/build-flow.mjs && node scripts/build-docmorph.mjs && node scripts/build-exam.mjs && node scripts/build-tablemind.mjs && node scripts/build-mascot.mjs && node scripts/build-lab.mjs",
     "test": "node --test tests/*.test.mjs",
     "desktop": "electron desktop/main.cjs",
-    "desktop:build": "npm run build && electron-builder --config desktop/builder.cjs --win --x64"
+    "desktop:build": "npm run build && electron-builder --config desktop/builder.cjs --win --x64",
+    "desktop:sync": "node scripts/sync-to-installed.mjs"
   },
   "engines": {
     "node": ">=24"

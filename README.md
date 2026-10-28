@@ -1,8 +1,26 @@
-# OmniFormOS · Web 与 Windows 桌面工作区
+# OmniFormOS · Windows 桌面工作区（八大引擎）
 
-包含 FormPilot、ExamCraft、FlowForm、DocMorph、AdaptForm、TableMind、LabForm 和 AppCanvas 八个模块。各模块具体范围见 docs 中对应的升级与验收说明；下方早期版本记录保留作为历史资料。
+**本项目即 Windows 桌面版的完整源码**：同一个仓库既能直接运行网页工作区，也能打包成 `.exe` 桌面应用。包含 FormPilot、ExamCraft、FlowForm、DocMorph、AdaptForm、TableMind、LabForm 和 AppCanvas 八个模块。各模块具体范围见 docs 中对应的升级与验收说明；下方早期版本记录保留作为历史资料。
 
-Windows 桌面版安装包：`output/desktop/OmniFormOS-Desktop-1.0.0-x64-Setup.exe`。内置运行环境，数据存放在用户目录。使用、迁移和限制见 [桌面版说明](docs/Windows桌面版使用与验收.md)。开发桌面窗口使用 `npm run desktop`，重新打包使用 `npm run desktop:build`。
+## 项目结构（单一源码，两种运行形态）
+
+| 目录 / 文件 | 作用 | 是否随桌面包发布 |
+|---|---|---|
+| `public/` | 前端工作区：八模块界面、桌面壳、账户、双语 i18n | ✅ |
+| `src/` | 服务端模块：八模块数据服务、认证、备份、AI 配置路由 | ✅ |
+| `desktop/` | Electron 主进程、preload、打包配置 | ✅（打包配置除外） |
+| `server.mjs` | 本地 HTTP 服务入口（网页端 3100 / 桌面端 3102） | ✅ |
+| `tests/`、`scripts/` | 测试与构建、校验、同步脚本 | ❌ |
+| `docs/` | 模块文档、验收记录、大赛材料 | ❌ |
+
+- 网页端：`npm run dev` → http://127.0.0.1:3100
+- 桌面端（开发）：`npm run desktop`
+- 桌面端（安装包）：`npm run desktop:build` → 产物在 `output/desktop/`，当前版本 **1.2.0**
+- 桌面端（已安装副本同步）：`npm run desktop:sync` —— 以本仓库为唯一真源，把 `public/src/desktop/server.mjs/package.json` 同步到本机安装目录；显示层改动按 `Ctrl+R` 生效，主进程改动需退出重开
+
+> 数据位置：桌面版使用用户目录下的独立工作区（`%APPDATA%\OmniFormOS Desktop\`，八个 SQLite 数据库 + `ai-config.json`），网页端原型数据保存在浏览器 localStorage。两者互不覆盖。
+
+Windows 桌面版使用、迁移和限制见 [桌面版说明](docs/Windows桌面版使用与验收.md)。
 
 ## ⚡ 10 分钟极速复现指南
 
