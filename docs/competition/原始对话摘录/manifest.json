@@ -1,0 +1,45 @@
+{
+  "sourceSha256": "828741ff3b1315f97169bbb45f454c744e1dfaa065dd46df141a42c2b7192abf",
+  "sessionId": "01a15df0-5c3b-7810-8087-690f520eef34",
+  "exportedAt": "2026-10-31T01:37:37.896Z",
+  "scope": "选定区间的用户与助手可见文字，不含工具调用、推理、系统指令；截图与附件正文另行核验。时间为 UTC。",
+  "files": [
+    {
+      "file": "01-导航切换与闪烁修复.md",
+      "messages": 12,
+      "ranges": [
+        [
+          29,
+          40
+        ]
+      ],
+      "sha256": "b606346bf7b1e7d168b0b9f3a07f9ff3ecf7bff388549673a1ee32d9f335067f"
+    },
+    {
+      "file": "02-全项目检查与问题修复.md",
+      "messages": 11,
+      "ranges": [
+        [
+          41,
+          51
+        ]
+      ],
+      "sha256": "7f3fc7038ee28a58beaedc95d83fadb994e2440bca12fed4902359bee09488d8"
+    },
+    {
+      "file": "03-本地服务连接失败与恢复.md",
+      "messages": 10,
+      "ranges": [
+        [
+          139,
+          144
+        ],
+        [
+          157,
+          160
+        ]
+      ],
+      "sha256": "524eabba2f49636727ae448aa2c703b186d95df50ed7ffbf59efee05b0120460"
+    }
+  ]
+}
